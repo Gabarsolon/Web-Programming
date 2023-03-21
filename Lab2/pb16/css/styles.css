@@ -27,14 +27,17 @@ body {
 }
 
 #menu ul li:hover {
-    background-color: rgb(36, 72, 150);
+    background-color: #0b1a3b;
 }
 
 
 .parent-menu {
-    background-color: rgb(33, 88, 209);
+    background-color: #254997;
     min-width: 200px;
     float: left;
+    display: flex;
+    flex-direction: column;
+
 }
 
 #menu ul li > ul {
@@ -45,11 +48,13 @@ body {
     min-width: 200px;
     z-index: -1;
     height: 100%;
-    /* visibility: hidden; */
 
 }
 
 #menu ul li:hover > ul {
-    /* visibility: visible; */
     left: 200px;
+}
+
+#menu ul li > ul li:hover {
+    background-color: #444;
 }
