@@ -52,6 +52,7 @@ body {
 }
 
 #menu ul li:hover > ul {
+    position: absolute;
     left: 200px;
 }
 
