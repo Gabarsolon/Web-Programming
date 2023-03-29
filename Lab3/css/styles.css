@@ -11,8 +11,11 @@ body {
 header {
     padding-top: 24px;
     border-top: 8px solid #2774AE;   
+    border-bottom: 1px solid #E5E5E5;
+    height: 140px;
     width: 100%;
 }
+
 
 nav{
     float: right;
@@ -35,14 +38,14 @@ nav ul {
 }
 
 .header-components {
-    margin-top: -30px;
+    margin-top: -40px;
     float: right;
 }
 
 #header-wrapper {
     padding: 0 150px;
     margin: 0 auto;
-    height: 100px;
+    height: 80px;
 }
 
 #search {
@@ -54,7 +57,7 @@ nav ul {
     border-color: #F26A1B;
     font-weight: lighter;
     max-width: 1270px;
-    margin-left: auto;
+    margin-left: auto;  
     margin-right: auto;
     margin-bottom: 24px;
     margin-top: 24px;
@@ -92,3 +95,76 @@ nav ul {
     border-radius: 2px;
 }
 
+#hero {
+    background: linear-gradient(180deg, #005587 0%, #2774AE 100%);
+    margin-top: 64px;
+    padding-top: 32px;
+}
+
+.ucla-campus {
+    display: block;
+    position: relative;
+    padding-left: 36px;
+    padding-right: 36px;
+    margin: 0 auto;
+    max-width: 1224px;
+}
+
+.article-wrapper {
+    display: flex;
+    margin-bottom: 64px !important;
+    margin-top: -64px;
+}
+
+.main-article {
+    display: grid;
+    width: 66%;
+    margin-right: 1.5rem !important;
+}
+
+.sub-article {
+    display: grid;
+    width: 33%;
+}
+
+#hero img {
+    width: 100%;
+}
+
+#hero a {
+    position: relative;
+}
+
+.box-2-img {
+    margin-bottom: 24px;
+}
+
+.box-3-img {
+    padding-bottom: 14px;
+}
+
+#hero h3 {
+    position: absolute;
+    bottom: 0px;
+    z-index: 1;
+    background: #FFF;
+    color: #00598C;
+    padding: 16px 32px 12px;
+    margin-right: 24px;
+}
+
+.box-1-title {
+    font-size: 24px;
+}
+
+#hero h3::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: 16px;
+    width: 64px;
+    height: 4px;
+    background: #FFD100;
+    margin-bottom: 24px;
+}
