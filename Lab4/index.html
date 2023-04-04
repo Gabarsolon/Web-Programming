@@ -1,0 +1,29 @@
+<!--
+    Write an HTML page that contains two combo boxes. 
+    The first combo box contains a list of Romanian counties. 
+    The second combo box contains a list of cities within the county selected in the first combo box. 
+    Whenever the value in the fist combo box is changing, the second combo box will be update accordingly.
+-->
+
+<!DOCTYPE html>
+
+<head>
+    <title>JS Homework</title>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <h1>Romanian counties and cities</h1>
+    <label for="counties">Choose a Romanian county: </label>
+    <select id="counties" name="counties">
+        <option disabled selected value>-- Select an option --</option>
+        <option value="BN">Bistrița-Năsăud</option>
+        <option value="VS">Vaslui</option>
+        <option value="CJ">Cluj</option>
+        <option value="MS">Mureș</option>
+        <option value="IF">Ilfov</option>
+    </select>
+
+    <label for="cities">Choose a city: </label>
+    <select id="cities" name="cities"></select>
+</body>
