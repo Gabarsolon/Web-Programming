@@ -19,6 +19,7 @@
     <title>Lab5</title>
     <link rel="stylesheet" href="styles.css">
     <script src="jquery.min.js"></script>
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -44,5 +45,23 @@
         <input type="color" id="color2" name="color">
     </form>
 
-    <button id="button-main-form" type="submit" form="main-form" value="Submit">Submit</button>
+    <button id="button-main-form">Submit</button>
+
+    <div id="modal-window">
+        <h2>Input anything</h2>
+        <form id="modal-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br>
+    
+            <label for="league">League:</label>
+            <input type="text" id="league" name="league"><br>
+            
+            <label for="league">Coach name:</label>
+            <input type="text" id="coach" name="coach"><br>
+
+            <label for="league">Stadium capacity:</label>
+            <input type="text" id="stadiumcap" name="stadiumcap"><br>
+        </form>
+        <button id="button-modal-form">Submit</button>
+    </div>
 </body>

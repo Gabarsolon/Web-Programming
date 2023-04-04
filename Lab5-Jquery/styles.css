@@ -2,6 +2,17 @@
     width: 250px;
 }
 
+#modal-window {
+    width: 300px;
+    margin: auto;
+    display: none;
+}
+
+body {
+    background-color: rgb(55, 55, 55);
+    color:white;
+}
+
 label {
     display: inline-block;
     margin-bottom: 5px;
@@ -9,5 +20,5 @@ label {
 
 input[type="text"] {
     margin-left: 10px;
-    float:right;
+    float: right;
 }
