@@ -1,0 +1,48 @@
+<!--
+    Solve the following task using only the jQuery library 
+    (production version, jquery.min.js, or developement version, jquery.js); 
+    YOU ARE NOT ALLOWED TO USE ANY OTHER JS LIBRARY, PLUGIN OR EXTENSION BESIDES THE JQUERY LIBRARY. 
+    Write a web page which contains a form with at least 5 input fields and a button. 
+    If the user clicks on that button a modal interface window (actually a div) 
+    should pop out in the center of the browser window. 
+    This modal window should contain 4 input fields and a button. 
+    If the user clicks on that button, the modal window disappears 
+    and all the values inserted by the user in the modal window's input fields will be concatenated
+    and added to a text field in the main form. During the time the modal window is displayed, 
+    the fields from the main form will be inactive and a transparrent gray div should be displayed on top of the web page 
+    (this grey div should be beneath the modal window and should occupy the whole browser window).
+-->
+
+<!DOCTYPE html>
+
+<head>
+    <title>Lab5</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Mno bagatzy echipa favorita csz</h1>
+    <form id="main-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="league">League:</label>
+        <input type="text" id="league" name="league"><br>
+
+        <label for="type">Team type:</label>
+        <input type="radio" id="senior" name="type">
+        <label for="senior">Senior</label>
+        <input type="radio" id="junior" name="type">
+        <label for="junior">Junior</label><br>
+
+        <label for="year">Year of foundation:</label>
+        <input type="date" id="year" name="year"><br>
+
+        <label for="color">Team colors: </label>
+        <input type="color" id="color1" name="color">
+        <input type="color" id="color2" name="color">
+    </form>
+
+    <button id="button-main-form" type="submit" form="main-form" value="Submit">Submit</button>
+</body>
