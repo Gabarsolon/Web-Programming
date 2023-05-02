@@ -1,0 +1,19 @@
+<html>
+<head>
+	<script src="./scripts/jquery-3.6.4.min.js"></script>
+	<script language="javascript">
+		jQuery(function(){
+						$("#get-button").click(function() {
+							// parameter name: "test" from the ajax call is not actually used
+							$.get("get_recipes_by_type.php", {type: $("#type").val()},					
+								function(data,status) {
+								$("#maindiv").html(data);
+							});
+						});
+					});
+	</script>
+</head>
+	<body>
+		<a href="index.html">Go back</a><br>
+	</body>
+</html>
