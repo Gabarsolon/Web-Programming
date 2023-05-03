@@ -3,14 +3,35 @@
 	<script src="./scripts/jquery-3.6.4.min.js"></script>
 	<script language="javascript">
 		jQuery(function(){
-						$("#get-button").click(function() {
-							// parameter name: "test" from the ajax call is not actually used
-							$.get("get_recipes_by_type.php", {type: $("#type").val()},					
-								function(data,status) {
-								$("#maindiv").html(data);
-							});
-						});
-					});
+			//Function for making the ajax call for getting the recipes by type
+			const getRecipesByType = (type) => {
+				$.get("php/get_recipes_by_type.php", {type: type},					
+					function(data,status) {
+					$("#maindiv").html(data);
+				});
+			};
+			
+			//Populate the table with all of the recipes
+			getRecipesByType("");
+			
+			addEventListener("click", ()=>{
+				const element = event.target;
+
+				if(element.matches("#remove-button")){
+					confirm("Do you really want to remove the recipe?");
+					const recipeId = element.closest('tr').cells[1].innerHTML;
+					$.get(
+						"php/remove_recipe.php",
+						{id: recipeId},
+						function(data, status){
+							$("body").html(data);
+						}
+					);
+				}
+				else if(element.matches("#get-button"))
+					$("#get-button").click(getRecipesByType($("#type").val()));
+			})
+		});
 	</script>
 </head>
 	<body>

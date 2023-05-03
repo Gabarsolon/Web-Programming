@@ -25,7 +25,10 @@
 
 	while($row = mysqli_fetch_array($result)){
 		echo "<tr>";
-		echo "<td><a href=\"modify.html?id=" . $row['id'] . "\">Modify</td>";  
+		echo "<td>
+			<a href=\"modify.html?id=" . $row['id'] . "\"><button>Modify</button></a><br>		
+			<button id=\"remove-button\">Remove</button>
+			</td>";
 		echo "<td>" . $row['id'] . "</td>";
 		echo "<td>" . $row['author'] . "</td>";
 		echo "<td>" . $row['name'] . "</td>";

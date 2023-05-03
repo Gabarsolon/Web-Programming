@@ -5,10 +5,12 @@
 	<script language="javascript">
 		jQuery(function(){
                 const urlParams = new URLSearchParams(window.location.search);
+                const recipe_id = urlParams.get('id');
 
+                //Fill the form with the current info about the selected recipe
                 $.get(
-                    "get_recipe_by_id.php",
-                    {id: urlParams.get('id')},
+                    "php/get_recipe_by_id.php",
+                    {id: recipe_id},
                     function(data, status){
                         JSON.parse(data, 
                             (key, value)=>{
@@ -22,11 +24,12 @@
                     event.preventDefault();
                     
                     const json = {};
+                    json["id"] = recipe_id; 
                     $("#main-form :input").each(function () {
                         json[this.id] = $(this).val() || "";
                     });
                     $.post(
-                        "add_recipe.php", 
+                        "php/update_recipe.php", 
                         json,					
                     	function(data,status) {
                     	    $("body").html(data);
@@ -38,7 +41,6 @@
 </head>
 	<body>
 		<a href="index.html">Go back</a><br>
-        <button id="remove-button">Remove this recipe</button>
         <h1>Modify the recipe</h1>
         <form id="main-form">
             <label for="author">Author:</label>
