@@ -4,8 +4,21 @@
         die('Could not connect: ' . mysql_error());
     }
     
-	$result = mysql_query(
-        "INSERT INTO Recipes(author, name, type, time, servings, ingredients, method)
-        VALUES(" . $_POST['author'] . ',' . $_POST['name']
+    $author = mysqli_real_escape_string($con, $_POST['author']);
+    $name = mysqli_real_escape_string($con, $_POST['name']);
+    $type = mysqli_real_escape_string($con, $_POST['type']);
+    $prep_time = mysqli_real_escape_string($con, $_POST['prep-time']);
+    $servings = mysqli_real_escape_string($con, $_POST['servings']);
+    $ingredients = mysqli_real_escape_string($con, $_POST['ingredients']);
+    $method = mysqli_real_escape_string($con, $_POST['method']);
+
+	$result = mysqli_query($con, 
+        "INSERT INTO Recipes(author, name, type, prep_time, servings, ingredients, method)
+        VALUES('$author', '$name', '$type', '$prep_time', '$servings', '$ingredients', '$method');" 
     );
+    
+    echo "<a href=index.html>Home</a><br>";
+    echo "$result recipe was inserted succesfully";
+
+    mysqli_close($con);
 ?>
