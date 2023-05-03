@@ -23,25 +23,28 @@
                 $("#main-form").submit(function(event) {
                     event.preventDefault();
                     
-                    const json = {};
-                    json["id"] = recipe_id; 
-                    $("#main-form :input").each(function () {
-                        json[this.id] = $(this).val() || "";
-                    });
-                    $.post(
-                        "php/update_recipe.php", 
-                        json,					
-                    	function(data,status) {
-                    	    $("body").html(data);
-                        }
-                    );
+                    if(confirm("Do you really want to update this recipe")){
+                        const json = {};
+                        json["id"] = recipe_id; 
+                        $("#main-form :input").each(function () {
+                            json[this.id] = $(this).val() || "";
+                        });
+
+                        $.post(
+                            "php/update_recipe.php", 
+                            json,					
+                            function(data,status) {
+                                $("body").html(data);
+                            }
+                        );
+                    }
                 });
             });
 	</script>
 </head>
 	<body>
 		<a href="index.html">Go back</a><br>
-        <h1>Modify the recipe</h1>
+        <h1>Update the recipe</h1>
         <form id="main-form">
             <label for="author">Author:</label>
             <input type="text" id="author"><br>

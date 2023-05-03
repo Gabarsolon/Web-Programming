@@ -12,7 +12,7 @@
 	//echo "<html><body>";
 	echo "<table border='1'>
 	<tr>
-		<th>Modify</th>
+		<th>Operations</th>
 		<th>ID</th>
 		<th>Author</th>
 		<th>Name</th>
@@ -26,7 +26,7 @@
 	while($row = mysqli_fetch_array($result)){
 		echo "<tr>";
 		echo "<td>
-			<a href=\"modify.html?id=" . $row['id'] . "\"><button>Modify</button></a><br>		
+			<a href=\"update.html?id=" . $row['id'] . "\"><button>Update</button></a><br>		
 			<button id=\"remove-button\">Remove</button>
 			</td>";
 		echo "<td>" . $row['id'] . "</td>";

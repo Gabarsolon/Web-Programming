@@ -6,19 +6,19 @@
 		jQuery(function(){
                 $("#main-form").submit(function(event) {
                     event.preventDefault();
-                    confirm('Do you really want to add the recipe?');
-                    
-                    const json = {};
-                    $("#main-form :input").each(function () {
-                        json[this.id] = $(this).val() || "";
-                    });
-                    $.post(
-                        "add_recipe.php", 
-                        json,					
-                    	function(data,status) {
-                    	    $("body").html(data);
-                        }
-                    );
+                    if(confirm('Do you really want to add the recipe?')){
+                        const json = {};
+                        $("#main-form :input").each(function () {
+                            json[this.id] = $(this).val() || "";
+                        });
+                        $.post(
+                            "php/add_recipe.php", 
+                            json,					
+                            function(data,status) {
+                                $("body").html(data);
+                            }
+                        );
+                    }
                 });
             });
 	</script>

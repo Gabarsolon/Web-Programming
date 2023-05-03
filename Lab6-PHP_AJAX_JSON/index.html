@@ -18,15 +18,16 @@
 				const element = event.target;
 
 				if(element.matches("#remove-button")){
-					confirm("Do you really want to remove the recipe?");
-					const recipeId = element.closest('tr').cells[1].innerHTML;
-					$.get(
-						"php/remove_recipe.php",
-						{id: recipeId},
-						function(data, status){
-							$("body").html(data);
-						}
-					);
+					if(confirm("Do you really want to remove the recipe?")){
+						const recipeId = element.closest('tr').cells[1].innerHTML;
+						$.get(
+							"php/remove_recipe.php",
+							{id: recipeId},
+							function(data, status){
+								$("body").html(data);
+							}
+						);
+					}
 				}
 				else if(element.matches("#get-button"))
 					$("#get-button").click(getRecipesByType($("#type").val()));
