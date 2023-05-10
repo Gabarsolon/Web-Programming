@@ -16,7 +16,7 @@
 			
 			addEventListener("click", ()=>{
 				const element = event.target;
-
+			
 				if(element.matches("#remove-button")){
 					if(confirm("Do you really want to remove the recipe?")){
 						const recipeId = element.closest('tr').cells[1].innerHTML;
