@@ -1,4 +1,6 @@
 <?php
+	header("Access-Control-Allow-Origin: *");
+
 	$con = mysqli_connect("localhost","root","", "food_recipes");
 	if (!$con) {
 		die('Could not connect: ' . mysql_error());
