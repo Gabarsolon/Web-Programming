@@ -1,5 +1,7 @@
 <?php 
     header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: *");
+    header("Access-Control-Allow-Methods: *");
 
     $con = mysqli_connect("localhost", "root", "", "food_recipes");
     if(!$con){
@@ -19,7 +21,6 @@
         VALUES('$author', '$name', '$type', '$prep_time', '$servings', '$ingredients', '$method');" 
     );
     
-    echo "<a href=index.html>Home</a><br>";
     echo "The recipe was added succesfully";
 
     mysqli_close($con);

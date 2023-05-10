@@ -4,7 +4,8 @@
         <input matInput [(ngModel)]="type">
     </mat-form-field>
     
-    <button mat-raised-button color="primary" (click)="onFilter()">Filter</button>
+    <button mat-raised-button color="primary" (click)="onFilter()" (keyup.enter)="onFilter()">Filter</button><br>
+    <button mat-raised-button color="primary" (click)="onAdd()">Add new recipe</button>
 </div>
 
 

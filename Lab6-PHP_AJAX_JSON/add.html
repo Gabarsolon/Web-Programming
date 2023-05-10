@@ -11,6 +11,7 @@
                         $("#main-form :input").each(function () {
                             json[this.id] = $(this).val() || "";
                         });
+                        console.log(json);
                         $.post(
                             "php/add_recipe.php", 
                             json,					
