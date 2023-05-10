@@ -24,9 +24,14 @@ export class GenericService {
   }
 
   AddRecipe(recipe: Recipe): Observable<string>{
-    console.log(recipe);
+    // console.log(recipe);
     return this.http.post<string>(this.backendUrl + 'add_recipe.php', JSON.stringify(recipe))
       .pipe(catchError(this.handleError<string>('AddRecipe', "")));
+  }
+
+  RemoveRecipe(recipeId: number): Observable<string>{
+    return this.http.get<string>(this.backendUrl + `remove_recipe.php?id=${recipeId}`)
+      .pipe(catchError(this.handleError<string>('RemoveRecipe', "")));
   }
 
    /**

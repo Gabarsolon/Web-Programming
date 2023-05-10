@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 })
 export class RecipesComponent implements OnInit{
   recipes: Recipe[] = [];
-  displayedColumns: string[] = ['id', 'author', 'name', 'type', 'prep_time','servings', 'ingredients', 'method'];
+  displayedColumns: string[] = ['operations','id', 'author', 'name', 'type', 'prep_time','servings', 'ingredients', 'method'];
   type: string = '';
   recipe: Recipe = {
     id: 0,
@@ -44,8 +44,8 @@ export class RecipesComponent implements OnInit{
       data: this.recipe,
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
+    dialogRef.afterClosed().subscribe(ok => {
+      if(ok){
         this.genericService.AddRecipe(this.recipe).subscribe(()=>{
           this.type="";
           this.getRecipes();
@@ -53,6 +53,21 @@ export class RecipesComponent implements OnInit{
        
       }
     });
+  }
+
+  onRemove(recipeId: number): void{
+    const dialogRef = this.dialog.open(RemoveRecipeComponent, {
+        data: recipeId
+    });
+
+    dialogRef.afterClosed().subscribe(ok => {
+      if(ok){
+        this.genericService.RemoveRecipe(recipeId).subscribe(()=>{
+          this.type="";
+          this.getRecipes();
+        })
+      }
+    })
   }
 }
 
@@ -65,6 +80,22 @@ export class AddRecipeComponent {
   constructor(
     public dialogRef: MatDialogRef<AddRecipeComponent>,
     @Inject(MAT_DIALOG_DATA) public recipe: Recipe,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'recipes.remove-dialog',
+  templateUrl: 'recipes.remove-dialog.html',
+  styleUrls: ['./recipes.component.scss']
+})
+export class RemoveRecipeComponent {
+  constructor(
+    public dialogRef: MatDialogRef<RemoveRecipeComponent>,
+    @Inject(MAT_DIALOG_DATA) public recipeId: number,
   ) {}
 
   onNoClick(): void {
