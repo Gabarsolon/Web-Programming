@@ -10,6 +10,7 @@ import { GenericService } from '../generic.service';
 export class RecipesComponent implements OnInit{
   recipes: Recipe[] = [];
   displayedColumns: string[] = ['id', 'author', 'name', 'type', 'prep_time','servings', 'ingredients', 'method'];
+  type: string = '';
 
   constructor(private genericService: GenericService){}
 
@@ -19,7 +20,11 @@ export class RecipesComponent implements OnInit{
   }
 
   getRecipes(): void {
-      this.genericService.fetchRecipes()
+      this.genericService.fetchRecipes(this.type)
         .subscribe(recipes => this.recipes = recipes);
+  }
+
+  onFilter(): void{
+    this.getRecipes();
   }
 }

@@ -18,8 +18,8 @@ export class GenericService {
 
   constructor(private http: HttpClient) { }
 
-  fetchRecipes() : Observable<Recipe[]>{
-    return this.http.get<Recipe[]>(this.backendUrl+'get_recipes_by_type.php?type=')
+  fetchRecipes(type: string) : Observable<Recipe[]>{
+    return this.http.get<Recipe[]>(this.backendUrl+`get_recipes_by_type.php?type=${type}`)
       .pipe(catchError(this.handleError<Recipe[]>('fetchStudents', [])));
   }
 
