@@ -1,7 +1,9 @@
-import { Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild} from '@angular/core';
 import { Recipe } from '../recipe';
 import { GenericService } from '../generic.service';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Form, FormControl, FormGroup, NgForm, NgModel, Validators } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'app-recipes',
@@ -18,7 +20,7 @@ export class RecipesComponent implements OnInit{
     name: "",
     type: "",
     prep_time: "",
-    servings: 0,
+    servings: 1,
     ingredients: "",
     method: ""
   };
@@ -91,6 +93,10 @@ export class RecipesComponent implements OnInit{
   styleUrls: ['./recipes.component.scss']
 })
 export class RecipeFormComponent {
+    name = new FormControl('', [Validators.required]);
+    type = new FormControl('', [Validators.required]);
+    servings = new FormControl('', [Validators.min(1)]);
+
   constructor(
     public dialogRef: MatDialogRef<RecipeFormComponent>,
     @Inject(MAT_DIALOG_DATA) public recipe: Recipe,

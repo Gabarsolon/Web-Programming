@@ -1,45 +1,52 @@
 <h1 mat-dialog-title>Fill the form:</h1>
-<div mat-dialog-content style="width: 1000px; display:flex; flex-direction: column;">
-  <mat-form-field appearance="fill">
-    <mat-label>Author</mat-label>
-    <input matInput [(ngModel)]="recipe.author">
-  </mat-form-field><br>
+<form>
+  <div mat-dialog-content style="width: 1000px; display:flex; flex-direction: column;">
+    <mat-form-field appearance="fill">
+      <mat-label>Author</mat-label>
+      <input matInput [(ngModel)]="recipe.author" name="author">
+    </mat-form-field><br>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="recipe.name" [formControl]="name" required>
+      <mat-error *ngIf="name.invalid">Name is required</mat-error>
+    </mat-form-field><br>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Type</mat-label>
+      <input matInput [(ngModel)]="recipe.type" [formControl]="type" name="type" required>
+      <mat-error *ngIf="type.invalid">Type is required</mat-error>
+    </mat-form-field><br>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Preparation Time</mat-label>
+      <input matInput type="time" step="1" [(ngModel)]="recipe.prep_time" name="prep_time" >
+    </mat-form-field><br>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Servings</mat-label>
+      <input matInput type="number" [(ngModel)]="recipe.servings" [formControl]="servings" name="servings">
+      <mat-error *ngIf="servings.invalid">Servings must be at least 1</mat-error>
+    </mat-form-field><br>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Ingredients</mat-label>
+      <textarea matInput rows="4" cols="50" [(ngModel)]="recipe.ingredients" name="ingredients"></textarea>
+    </mat-form-field><br>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Method</mat-label>
+      <textarea matInput rows="4" cols="50" [(ngModel)]="recipe.method" name="method"></textarea>
+    </mat-form-field><br>
+  
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [disabled]="name.invalid || type.invalid || servings.invalid" [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="recipe.name">
-  </mat-form-field><br>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Type</mat-label>
-    <input matInput [(ngModel)]="recipe.type">
-  </mat-form-field><br>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Preparation Time</mat-label>
-    <input matInput type="time" step="1" [(ngModel)]="recipe.prep_time">
-  </mat-form-field><br>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Servings</mat-label>
-    <input matInput type="number" [(ngModel)]="recipe.servings">
-  </mat-form-field><br>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Ingredients</mat-label>
-    <textarea matInput rows="4" cols="50" [(ngModel)]="recipe.ingredients"></textarea>
-  </mat-form-field><br>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Method</mat-label>
-    <textarea matInput rows="4" cols="50" [(ngModel)]="recipe.method"></textarea>
-  </mat-form-field><br>
-
-</div>
-<div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
-  <button mat-button (click)="onNoClick()">Cancel</button>
-</div>
 
 
 <!-- Copyright 2023 Google LLC. All Rights Reserved.
