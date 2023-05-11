@@ -34,6 +34,12 @@ export class GenericService {
       .pipe(catchError(this.handleError<string>('RemoveRecipe', "")));
   }
 
+  UpdateRecipe(recipe: Recipe): Observable<string>{
+    console.log(recipe);
+    console.log(JSON.stringify(recipe));
+    return this.http.post<string>(this.backendUrl + "update_recipe.php", JSON.stringify(recipe))
+      .pipe(catchError(this.handleError<string>('UpdateRecipe', "")));
+  }
    /**
   * Handle Http operation that failed.
   * Let the app continue.

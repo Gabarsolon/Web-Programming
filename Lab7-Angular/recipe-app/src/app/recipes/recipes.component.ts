@@ -26,7 +26,7 @@ export class RecipesComponent implements OnInit{
   constructor(private genericService: GenericService, public dialog: MatDialog){}
 
   ngOnInit(): void{
-    console.log("ngOnInit called for StudentComponent");
+    // console.log("ngOnInit called for StudentComponent");
     this.getRecipes();
   }
 
@@ -40,7 +40,7 @@ export class RecipesComponent implements OnInit{
   }
 
   onAdd(): void{
-    const dialogRef = this.dialog.open(AddRecipeComponent, {
+    const dialogRef = this.dialog.open(RecipeFormComponent, {
       data: this.recipe,
     });
 
@@ -69,16 +69,30 @@ export class RecipesComponent implements OnInit{
       }
     })
   }
+
+  onUpdate(recipe: Recipe): void{
+    const dialogRef = this.dialog.open(RecipeFormComponent, {
+      data: recipe
+    });
+
+    dialogRef.afterClosed().subscribe(ok => {
+      if(ok){
+        this.genericService.UpdateRecipe(recipe).subscribe(()=>{
+          this.type="";
+          this.getRecipes();
+        });
+      }});
+  }
 }
 
 @Component({
-  selector: 'recipes.add-dialog',
-  templateUrl: 'recipes.add-dialog.html',
+  selector: 'recipes.form',
+  templateUrl: 'recipes.form.html',
   styleUrls: ['./recipes.component.scss']
 })
-export class AddRecipeComponent {
+export class RecipeFormComponent {
   constructor(
-    public dialogRef: MatDialogRef<AddRecipeComponent>,
+    public dialogRef: MatDialogRef<RecipeFormComponent>,
     @Inject(MAT_DIALOG_DATA) public recipe: Recipe,
   ) {}
 

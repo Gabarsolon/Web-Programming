@@ -1,8 +1,5 @@
-<h1 mat-dialog-title>Add recipe</h1>
+<h1 mat-dialog-title>Fill the form:</h1>
 <div mat-dialog-content style="width: 1000px; display:flex; flex-direction: column;">
-
-  <p>Fill the form:</p>
-
   <mat-form-field appearance="fill">
     <mat-label>Author</mat-label>
     <input matInput [(ngModel)]="recipe.author">
@@ -40,7 +37,7 @@
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Add</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
   <button mat-button (click)="onNoClick()">Cancel</button>
 </div>
 

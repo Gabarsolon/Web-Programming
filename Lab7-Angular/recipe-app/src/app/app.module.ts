@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddRecipeComponent, RecipesComponent, RemoveRecipeComponent } from './recipes/recipes.component';
+import { RecipeFormComponent, RecipesComponent, RemoveRecipeComponent } from './recipes/recipes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,7 +22,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   declarations: [
     AppComponent,
     RecipesComponent,
-    AddRecipeComponent,
+    RecipeFormComponent,
     RemoveRecipeComponent
   ],
   imports: [
