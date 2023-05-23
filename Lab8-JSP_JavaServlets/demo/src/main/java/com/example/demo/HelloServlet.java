@@ -1,4 +1,4 @@
-package com.gabarsolon.battleships;
+package com.example.demo;
 
 import java.io.*;
 

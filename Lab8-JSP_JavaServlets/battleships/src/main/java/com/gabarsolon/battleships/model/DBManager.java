@@ -1,7 +1,6 @@
-package webubb.model;
+package com.gabarsolon.battleships.model;
 
-import webubb.domain.Asset;
-import webubb.domain.User;
+import com.gabarsolon.battleships.domain.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,37 +41,4 @@ public class DBManager {
         }
         return u;
     }
-
-    public ArrayList<Asset> getUserAssets(int userid) {
-        ArrayList<Asset> assets = new ArrayList<Asset>();
-        ResultSet rs;
-        try {
-            rs = stmt.executeQuery("select * from assets where userid="+userid);
-            while (rs.next()) {
-                assets.add(new Asset(
-                        rs.getInt("id"),
-                        rs.getInt("userid"),
-                        rs.getString("description"),
-                        rs.getInt("value")
-                ));
-            }
-            rs.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return assets;
-    }
-
-    public boolean updateAsset(Asset asset) {
-        int r = 0;
-        try {
-            r = stmt.executeUpdate("update assets set description='"+asset.getDescription()+"', value="+asset.getValue()+
-                    " where id="+asset.getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (r>0) return true;
-        else return false;
-    }
-
 }
