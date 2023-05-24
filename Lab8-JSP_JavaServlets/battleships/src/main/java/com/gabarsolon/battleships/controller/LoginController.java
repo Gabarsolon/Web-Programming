@@ -1,53 +1,51 @@
 package com.gabarsolon.battleships.controller;
 
-/**
- * Created by forest.
- */
-
-
+import com.gabarsolon.battleships.domain.User;
+import com.gabarsolon.battleships.model.DBManager;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import com.gabarsolon.battleships.domain.User;
-import com.gabarsolon.battleships.model.DBManager;
-
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {
 
+    private static int nrOfPlayers;
+    private DBManager dbManager;
     public LoginController() {
         super();
+        dbManager = new DBManager();
+        nrOfPlayers = 0;
+    }
+
+    public static void resetNrPlayers() {
+        nrOfPlayers = 0;
     }
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        RequestDispatcher rd = null;
-
-        DBManager dbmanager = new DBManager();
-        User user = dbmanager.authenticate(username, password);
-        if (user != null) {
-            rd = request.getRequestDispatcher("/success.jsp");
-            //request.setAttribute("user", user);
-            // Here we should set the "user" attribute on the session like this:
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            // .. and then, in all JSP/Servlet pages we should check if the "user" attribute exists in the session
-            // and if not, we should return/exit the method:
-            // HttpSession session = request.getSession();
-            // String user = session.getAttribute("user");
-            // if (user==null || user.equals("")) {
-            //        return;
-            // }
-        } else {
-            rd = request.getRequestDispatcher("/error.jsp");
+        System.out.println(username + " " + password);
+        User result = dbManager.authenticate(username, password);
+        if(result==null) {
+            request.getRequestDispatcher("login-error.jsp")
+                    .forward(request, response);
         }
-        rd.forward(request, response);
+        else {
+            RequestDispatcher rd = null;
+
+            if (nrOfPlayers < 2) {
+                nrOfPlayers += 1;
+                rd = request.getRequestDispatcher("/success.jsp");
+
+            } else {
+                rd = request.getRequestDispatcher("/error.jsp");
+            }
+//            System.out.println(this.players);
+            rd.forward(request, response);
+        }
     }
 
 }
