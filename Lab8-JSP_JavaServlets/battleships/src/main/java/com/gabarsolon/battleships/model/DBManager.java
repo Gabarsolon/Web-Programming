@@ -47,6 +47,19 @@ public class DBManager {
         return u;
     }
 
+    public boolean checkIfBoardExists(User user){
+        ResultSet rs;
+        boolean answer = false;
+        try {
+            rs = stmt.executeQuery("select * from board where playerId=" + user.getId());
+            if (rs.next())
+                answer = true;
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return answer;
+    }
     public Board getBoard(User user){
         ResultSet rs;
         Board b = new Board();
@@ -109,15 +122,13 @@ public class DBManager {
         }
     }
 
-    public void deleteBoard(User user) {
+    public void deleteBoards() {
         try {
 
             for (int i = 0; i < 6; ++i) {
                 for (int j = 0; j < 6; ++j) {
-                    String query = "DELETE FROM Board WHERE playerId=" + Double.toString(user.getId());
-                    System.out.println(query);
+                    String query = "DELETE FROM board";
                     Statement stmt = con.createStatement();
-
                     stmt.execute(query);
                 }
             }

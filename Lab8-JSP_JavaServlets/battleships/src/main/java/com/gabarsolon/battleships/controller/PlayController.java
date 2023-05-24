@@ -69,7 +69,7 @@ public class PlayController extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"You Lost!\"}");
             response.getWriter().flush();
-            dbManager.deleteBoard(currentUser);
+            dbManager.deleteBoards();
             request.getSession().invalidate();
 
             //wait for the other user to receive the game over message
@@ -89,7 +89,6 @@ public class PlayController extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"You Won!\"}");
             response.getWriter().flush();
-            dbManager.deleteBoard(otherUser);
             request.getSession().invalidate();
             return;
         }
@@ -116,11 +115,13 @@ public class PlayController extends HttpServlet {
         System.out.println(user.getId());
         if (player1 == null) {
             player1 = user;
-            dbManager.addBoard(player1);
+            if(!dbManager.checkIfBoardExists(player1))
+                dbManager.addBoard(player1);
         }
         else if(player2 == null && user.getId() != player1.getId()){
             player2 = user;
-            dbManager.addBoard(player2);
+            if(!dbManager.checkIfBoardExists(player2))
+                dbManager.addBoard(player2);
         }
 
         User currentUser;
@@ -134,8 +135,6 @@ public class PlayController extends HttpServlet {
             otherUser = player1;
         }
 
-        Board otherUserBoard = dbManager.getBoard(otherUser);
-
         if(request.getParameter("orientation") == null) {
             //attack
             if (player1 == null || player2 == null) {
@@ -144,6 +143,8 @@ public class PlayController extends HttpServlet {
                 response.getWriter().flush();
                 return;
             }
+
+            Board otherUserBoard = dbManager.getBoard(otherUser);
 
             Integer x = Integer.parseInt(request.getParameter("x"));
             Integer y = Integer.parseInt(request.getParameter("y"));

@@ -13,7 +13,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.shipsAdded = 0;
-        this.health = 6;
+        this.health = 1;
     }
 
     public Integer getId() {
