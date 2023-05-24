@@ -3,6 +3,7 @@ package com.gabarsolon.battleships.model;
 import com.gabarsolon.battleships.domain.Board;
 import com.gabarsolon.battleships.domain.User;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -38,6 +39,8 @@ public class DBManager {
                 u = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
             }
             rs.close();
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,23 +49,21 @@ public class DBManager {
 
     public Board getBoard(User user){
         ResultSet rs;
-        User u = null;
-        System.out.println(username+" "+password);
+        Board b = new Board();
         try {
             rs = stmt.executeQuery("select * from board where playerId=" + user.getId());
 
+            rs.next();
             for(int i=0;i<6;i++)
-                for(int j=0;j<6;j++)
-
-
-            if (rs.next()) {
-                u = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
-            }
+                for(int j=0;j<6;j++){
+                    b.setForPosition(i, j, rs.getInt("val"));
+                    rs.next();
+                }
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return u;
+        return b;
     }
 
     public void addBoard(User user) {
@@ -87,7 +88,7 @@ public class DBManager {
 
     public void updateBoard(User user, Board board) {
         try {
-
+            stmt.execute("UPDATE users SET health=" + user.getHealth() + ", shipsAdded=" + user.getShipsAdded());
             for (int i = 0; i < 6; ++i) {
                 for (int j = 0; j < 6; ++j) {
 
@@ -102,6 +103,7 @@ public class DBManager {
 
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -44,6 +44,8 @@ public class PlayController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, java.io.IOException {
 
+        User user = (User)request.getSession().getAttribute("user");
+
         if (player1 == null || player2 == null) {
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"there should be 2 players connected\"}");
@@ -54,7 +56,8 @@ public class PlayController extends HttpServlet {
         User currentUser;
         User otherUser;
 
-        if (((PlayData)(request.getSession().getAttribute("PlayData"))).userId == player1.getId()) {
+
+        if (user.getId() == player1.getId()) {
             currentUser = player1;
             otherUser = player2;
         } else {
@@ -62,11 +65,11 @@ public class PlayController extends HttpServlet {
             otherUser = player1;
         }
 
-        if(currentUser.board.checkIfBoardIsLost()){
+        if(currentUser.getHealth() == 0){
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"You Lost!\"}");
             response.getWriter().flush();
-            deleteFromDB(currentUser);
+            dbManager.deleteBoard(currentUser);
             request.getSession().invalidate();
 
             //wait for the other user to receive the game over message
@@ -82,11 +85,11 @@ public class PlayController extends HttpServlet {
             LoginController.resetNrPlayers();
             return;
         }
-        if(otherUser.board.checkIfBoardIsLost()){
+        if(otherUser.getHealth() == 0){
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"You Won!\"}");
             response.getWriter().flush();
-            deleteFromDB(otherUser);
+            dbManager.deleteBoard(otherUser);
             request.getSession().invalidate();
             return;
         }
@@ -95,9 +98,12 @@ public class PlayController extends HttpServlet {
         response.setContentType("application/json");
         response.getWriter().print("{\"response\":\"success\",\"board\":");
 
-        flushForUser(currentUser, response);
+        Board currentUserBoard = dbManager.getBoard(currentUser);
+        Board otherUserBoard = dbManager.getBoard(otherUser);
+
+        flushForUser(currentUserBoard, response);
         response.getWriter().print(",\"opponent\":");
-        flushForUser(otherUser, response);
+        flushForUser(otherUserBoard, response);
 
         response.getWriter().print("}");
 
@@ -105,19 +111,21 @@ public class PlayController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+
         User user = (User) request.getSession().getAttribute("user");
+        System.out.println(user.getId());
         if (player1 == null) {
             player1 = user;
             dbManager.addBoard(player1);
-            request.getSession().setAttribute();
         }
-        else if(player2 == null){
-            player1 = user;
+        else if(player2 == null && user.getId() != player1.getId()){
+            player2 = user;
             dbManager.addBoard(player2);
         }
 
         User currentUser;
         User otherUser;
+
         if (user.getId() == player1.getId()) {
             currentUser = player1;
             otherUser = player2;
@@ -125,6 +133,8 @@ public class PlayController extends HttpServlet {
             currentUser = player2;
             otherUser = player1;
         }
+
+        Board otherUserBoard = dbManager.getBoard(otherUser);
 
         if(request.getParameter("orientation") == null) {
             //attack
@@ -145,20 +155,20 @@ public class PlayController extends HttpServlet {
                 return;
             }
 
-            if(otherUser.board.getForPosition(x,y) >= 2){
+            if(otherUserBoard.getForPosition(x,y) >= 2){
                 response.setContentType("application/json");
                 response.getWriter().print("{\"response\":\"position already attacked\"}");
                 response.getWriter().flush();
                 return;
             }
 
-            if (otherUser.board.shipsAdded != 2) {
+            if (otherUser.getShipsAdded() != 2) {
                 response.setContentType("application/json");
                 response.getWriter().print("{\"response\":\"other player didn't select yet\"}");
                 response.getWriter().flush();
                 return;
             }
-            if (currentUser.board.shipsAdded != 2) {
+            if (user.getShipsAdded() != 2) {
                 response.setContentType("application/json");
                 response.getWriter().print("{\"response\":\"please select ships first\"}");
                 response.getWriter().flush();
@@ -172,13 +182,14 @@ public class PlayController extends HttpServlet {
                 return;
             }
 
-            otherUser.board.attack(x, y);
+            Boolean hasAttackedPositionWithShipOnIt = otherUserBoard.attack(x, y);
+            if(hasAttackedPositionWithShipOnIt)
+                otherUser.setHealth(otherUser.getHealth()-1);
             isFirstPlayer = !isFirstPlayer;
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"success\"}");
             response.getWriter().flush();
-            updateDb(currentUser);
-            updateDb(otherUser);
+            dbManager.updateBoard(otherUser, otherUserBoard);
             return;
         } else {
             //position ship
@@ -242,13 +253,16 @@ public class PlayController extends HttpServlet {
                 return;
             }
 
-            if (currentUser.board.shipsAdded != 2) {
-                boolean addResult = currentUser.board.addShip(x, y, orientationVal);
+            Board currentUserBoard = dbManager.getBoard(currentUser);
+
+            if (currentUser.getShipsAdded() != 2) {
+                boolean addResult = currentUserBoard.addShip(x, y, orientationVal);
                 if(addResult){
                     response.setContentType("application/json");
                     response.getWriter().print("{\"response\":\"success\"}");
                     response.getWriter().flush();
-                    updateDb(currentUser);
+                    currentUser.setShipsAdded(currentUser.getShipsAdded() + 1);
+                    dbManager.updateBoard(currentUser, currentUserBoard);
                 }
                 else{
                     response.setContentType("application/json");

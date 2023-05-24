@@ -2,19 +2,15 @@ package com.gabarsolon.battleships.domain;
 
 public class Board {
     private int[][] board;
-    private int shipsAdded;
-    private int health;
 
-    public Board(int[][] board, int shipsAdded,int health) {
+    public Board() {
         this.board = new int[6][6];
-        this.shipsAdded = 0;
-        this.health=6;
     }
 
     public int getForPosition(int x, int y) {
         return board[y][x];
     }
-    public boolean checkIfBoardIsLost() {return health==0;}
+    public void setForPosition(int x, int y, int val){board[y][x]=val;}
     public static boolean checkValidPosition(int x, int y) {return x >= 0 && y >= 0 && x <= 5 && y <= 5;}
 
     public boolean addShip(int x, int y, int orientation) {
@@ -38,14 +34,14 @@ public class Board {
             currentX += nextX[orientation];
             currentY += nextY[orientation];
         }
-        shipsAdded += 1;
 
         return true;
     }
 
-    public void attack(int x, int y) {
+    public boolean attack(int x, int y) {
         board[y][x] += 2;
         if(board[y][x] == 3)
-            health--;
+            return true;
+        return false;
     }
 }
