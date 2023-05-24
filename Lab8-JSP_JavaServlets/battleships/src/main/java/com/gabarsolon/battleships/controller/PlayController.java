@@ -17,7 +17,6 @@ public class PlayController extends HttpServlet {
     private User player1 = null;
     private User player2 = null;
     private Boolean isFirstPlayer;
-    private Connection con = null;
     private DBManager dbManager;
 
     public PlayController() {
@@ -26,38 +25,20 @@ public class PlayController extends HttpServlet {
         dbManager = new DBManager();
     }
 
-
-    private void deleteFromDB(User user) {
-        try {
-
-            for (int i = 0; i < 6; ++i) {
-                for (int j = 0; j < 6; ++j) {
-                    String query = "DELETE FROM Board WHERE playerId=" + Double.toString(user.getId());
-                    System.out.println(query);
-                    Statement stmt = con.createStatement();
-
-                    stmt.execute(query);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void flushForUser(User user, HttpServletResponse response) throws IOException {
+    private void flushForUser(Board board, HttpServletResponse response) throws IOException {
         response.getWriter().print("[");
         for (int i = 0; i < 5; ++i) {
             response.getWriter().print("[");
             for (int j = 0; j < 5; ++j) {
-                response.getWriter().print(user.board.getForPosition(i, j) + ",");
+                response.getWriter().print(board.getForPosition(i, j) + ",");
             }
-            response.getWriter().print(user.board.getForPosition(i, 5) + "],");
+            response.getWriter().print(board.getForPosition(i, 5) + "],");
         }
         response.getWriter().print("[");
         for (int j = 0; j < 5; ++j) {
-            response.getWriter().print(user.board.getForPosition(5, j) + ",");
+            response.getWriter().print(board.getForPosition(5, j) + ",");
         }
-        response.getWriter().print(user.board.getForPosition(5, 5) + "]]");
+        response.getWriter().print(board.getForPosition(5, 5) + "]]");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -124,22 +105,20 @@ public class PlayController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-
-        if (request.getSession().getAttribute("PlayData") == null) {
-            PlayData data = new PlayData();
-            if (player1 == null) {
-                player1 = new User(data.userId);
-                addToDb(player1);
-            } else {
-                player2 = new User(data.userId);
-                addToDb(player2);
-            }
-            request.getSession().setAttribute("PlayData", data);
+        User user = (User) request.getSession().getAttribute("user");
+        if (player1 == null) {
+            player1 = user;
+            dbManager.addBoard(player1);
+            request.getSession().setAttribute();
+        }
+        else if(player2 == null){
+            player1 = user;
+            dbManager.addBoard(player2);
         }
 
         User currentUser;
         User otherUser;
-        if (((PlayData)(request.getSession().getAttribute("PlayData"))).userId == player1.getId()) {
+        if (user.getId() == player1.getId()) {
             currentUser = player1;
             otherUser = player2;
         } else {

@@ -1,5 +1,6 @@
 package com.gabarsolon.battleships.model;
 
+import com.gabarsolon.battleships.domain.Board;
 import com.gabarsolon.battleships.domain.User;
 
 import java.sql.*;
@@ -43,8 +44,28 @@ public class DBManager {
         return u;
     }
 
+    public Board getBoard(User user){
+        ResultSet rs;
+        User u = null;
+        System.out.println(username+" "+password);
+        try {
+            rs = stmt.executeQuery("select * from board where playerId=" + user.getId());
 
-    private void addBoard(User user) {
+            for(int i=0;i<6;i++)
+                for(int j=0;j<6;j++)
+
+
+            if (rs.next()) {
+                u = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    public void addBoard(User user) {
         try {
 
             for (int i = 0; i < 6; ++i) {
@@ -64,7 +85,7 @@ public class DBManager {
         }
     }
 
-    private void updateBoard(User user) {
+    public void updateBoard(User user, Board board) {
         try {
 
             for (int i = 0; i < 6; ++i) {
@@ -72,13 +93,30 @@ public class DBManager {
 
                     String query = "UPDATE Board SET val = ? WHERE playerId = ? AND x = ? AND y = ?";
                     PreparedStatement stmt = con.prepareStatement(query);
-                    stmt.setInt(1, user.board.getForPosition(i, j));
+                    stmt.setInt(1, board.getForPosition(i, j));
                     stmt.setDouble(2, user.getId());
                     stmt.setInt(3, i);
                     stmt.setInt(4, j);
 
                     stmt.execute();
 
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteBoard(User user) {
+        try {
+
+            for (int i = 0; i < 6; ++i) {
+                for (int j = 0; j < 6; ++j) {
+                    String query = "DELETE FROM Board WHERE playerId=" + Double.toString(user.getId());
+                    System.out.println(query);
+                    Statement stmt = con.createStatement();
+
+                    stmt.execute(query);
                 }
             }
         } catch (SQLException e) {

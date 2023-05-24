@@ -1,14 +1,14 @@
 package com.gabarsolon.battleships.domain;
 
 public class Board {
-    public int[][] board;
-    public int shipsAdded;
-    public int health;
+    private int[][] board;
+    private int shipsAdded;
+    private int health;
 
-    public Board() {
-        board = new int[6][6];
-        shipsAdded = 0;
-        health=6;
+    public Board(int[][] board, int shipsAdded,int health) {
+        this.board = new int[6][6];
+        this.shipsAdded = 0;
+        this.health=6;
     }
 
     public int getForPosition(int x, int y) {

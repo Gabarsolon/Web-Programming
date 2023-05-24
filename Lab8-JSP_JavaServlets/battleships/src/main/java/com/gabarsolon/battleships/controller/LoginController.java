@@ -39,6 +39,7 @@ public class LoginController extends HttpServlet {
             if (nrOfPlayers < 2) {
                 nrOfPlayers += 1;
                 rd = request.getRequestDispatcher("/success.jsp");
+                request.getSession().setAttribute("user", result);
 
             } else {
                 rd = request.getRequestDispatcher("/error.jsp");
