@@ -25,9 +25,10 @@ public class LoginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        System.out.println(username + " " + password);
+
         User result = dbManager.authenticate(username, password);
         if(result==null) {
             request.getRequestDispatcher("login-error.jsp")
@@ -35,8 +36,11 @@ public class LoginController extends HttpServlet {
         }
         else {
             RequestDispatcher rd = null;
+            //if the user is already logged in
+            if(request.getSession().getAttribute("user") != null)
+                rd = request.getRequestDispatcher("/success.jsp");
 
-            if (nrOfPlayers < 2) {
+            else if (nrOfPlayers < 2){
                 nrOfPlayers += 1;
                 rd = request.getRequestDispatcher("/success.jsp");
                 request.getSession().setAttribute("user", result);

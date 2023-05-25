@@ -26,11 +26,18 @@
 </style>
 <script>
     $(document).ready(function() {
+        $.post("/PlayController");
+
         $("#submit_position").click(function() {
             var x = $("#x_position").val();
             var y = $("#y_position").val();
             var orientation = $("#orientation").val();
-            $.post("/PlayController?x=" + x + "&y=" + y + "&orientation=" + orientation, function (response) {
+            $.post(
+                "/PlayController/placeShip",
+                {
+                    x, y, orientation
+                },
+                function(response) {
                 if (response["response"] == "success") {
                     var nextY = new Map([["up", -1] ,["left", 0] , ["down",1], ["right", 0]]);
                     var nextX = new Map([["up", 0] ,["left", -1] , ["down",0], ["right", 1]]);
@@ -39,6 +46,7 @@
                     var currentY = parseInt(y);
 
                     for (var i = 0; i < 3; ++i) {
+                        <%--$(`#table tr:eq(${currentY}) td:eq(${currentX}`).css("background-color", "green");--%>
                         $("#id_" + (currentY * 6 + currentX)).css("background-color", "green");
                         currentX += nextX.get(or);
                         currentY += nextY.get(or);
@@ -51,7 +59,11 @@
         $("#submit_attack").click(function() {
             var x = $("#x_attack").val();
             var y = $("#y_attack").val();
-            $.post("/PlayController?x=" + x + "&y=" + y, function (response) {
+            $.post("/PlayController/attackShip",
+                {
+                    x, y
+                },
+                function (response) {
                 if (response["response"] == "success") {
 
                 } else {

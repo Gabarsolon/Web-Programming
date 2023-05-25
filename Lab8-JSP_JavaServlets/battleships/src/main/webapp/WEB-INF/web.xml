@@ -18,6 +18,6 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PlayController</servlet-name>
-        <url-pattern>/PlayController</url-pattern>
+        <url-pattern>/PlayController/*</url-pattern>
     </servlet-mapping>
 </web-app>

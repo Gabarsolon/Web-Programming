@@ -31,20 +31,21 @@ public class DBManager {
 
     public User authenticate(String username, String password) {
         ResultSet rs;
-        User u = null;
+        User user = null;
         System.out.println(username+" "+password);
         try {
             rs = stmt.executeQuery("select * from users where user='"+username+"' and password='"+password+"'");
+
             if (rs.next()) {
-                u = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
+                user = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
             }
             rs.close();
-
+            stmt.execute("DELETE FROM board WHERE playerId=" + user.getId());
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return u;
+        return user;
     }
 
     public boolean checkIfBoardExists(User user){

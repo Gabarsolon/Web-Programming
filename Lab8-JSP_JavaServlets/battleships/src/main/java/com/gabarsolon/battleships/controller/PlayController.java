@@ -110,9 +110,12 @@ public class PlayController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+        String pathInfo = request.getPathInfo();
+
 
         User user = (User) request.getSession().getAttribute("user");
         System.out.println(user.getId());
+
         if (player1 == null) {
             player1 = user;
             if(!dbManager.checkIfBoardExists(player1))
@@ -135,7 +138,7 @@ public class PlayController extends HttpServlet {
             otherUser = player1;
         }
 
-        if(request.getParameter("orientation") == null) {
+        if(pathInfo.equals("/attackShip")) {
             //attack
             if (player1 == null || player2 == null) {
                 response.setContentType("application/json");
@@ -192,7 +195,8 @@ public class PlayController extends HttpServlet {
             response.getWriter().flush();
             dbManager.updateBoard(otherUser, otherUserBoard);
             return;
-        } else {
+        }
+        if(pathInfo.equals("/placeShip")){
             //position ship
             Integer x = Integer.parseInt(request.getParameter("x"));
             Integer y = Integer.parseInt(request.getParameter("y"));
