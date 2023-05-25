@@ -29,30 +29,40 @@
         let updateUserBoard = (userBoard) => {
             for (var i = 0; i < 6; ++i) {
                 for (var j = 0; j < 6; ++j) {
-                    if (userBoard[i][j] === 3) {
-                        $("#id_" + (j * 6 + i)).css("background-color", "red");
+                    let color = "";
+                    switch(userBoard[i][j]) {
+                        case 1:
+                            color = "green";
+                            break;
+                        case 2:
+                            color = "yellow"
+                            break;
+                        case 3:
+                            color = "red"
+                        default:
+                            break;
                     }
-                    if (userBoard[i][j] === 2) {
-                        $("#id_" + (j * 6 + i)).css("background-color", "yellow");
-                    }
-                    if (userBoard[i][j] === 1) {
-                        $("#id_" + (j * 6 + i)).css("background-color", "green");
-                    }
+                    $("#user-board tr:eq(" + (j + 1) + ") td:eq(" + (i + 1) + ")").css("background-color", color);
                 }
             }
         }
         let updateOpponentBoard = (opponentBoard) => {
             for (var i = 0; i < 6; ++i) {
                 for (var j = 0; j < 6; ++j) {
-                    if (opponentBoard[i][j] === 3) {
-                        $("#id2_" + (j * 6 + i)).css("background-color", "red");
+                    let color = "";
+                    switch(opponentBoard[i][j]) {
+                        case 1:
+                            color = "green";
+                            break;
+                        case 2:
+                            color = "yellow"
+                            break;
+                        case 3:
+                            color = "red"
+                        default:
+                            break;
                     }
-                    if (opponentBoard[i][j] === 2) {
-                        $("#id2_" + (j * 6 + i)).css("background-color", "yellow");
-                    }
-                    if(opponentBoard[i][j] === 1){
-                        $("#id_" + (j * 6 + i)).css("background-color", "green");
-                    }
+                    $("#opponent-board tr:eq(" + (j + 1) + ") td:eq(" + (i + 1) + ")").css("background-color", color);
                 }
             }
         }
@@ -106,12 +116,12 @@
     out.print("<div class=\"container\">");
     out.print("<div class=\"board\">");
     out.print("<p>Your Board</p>");
-    out.print("<table>");
+    out.print("<table id=\"user-board\">");
     for (int i = 0; i < 7; ++i) {
         out.print("<tr>");
         for (int j = 0; j < 7; ++j) {
             if (i != 0 && j != 0) {
-                out.print("<td id=\"id_" + ((i - 1) * 6 + (j - 1)) + "\">&nbspo&nbsp</td>");
+                out.print("<td>&nbspo&nbsp</td>");
             }else {
                 out.print("<td>&nbsp" + max(max(i - 1, j - 1), 0) + "&nbsp</td>");
             }
@@ -123,12 +133,12 @@
 
     out.print("<div class=\"board\">");
     out.print("<p>Opponent Board</p>");
-    out.print("<table>");
+    out.print("<table id=\"opponent-board\">");
     for (int i = 0; i < 7; ++i) {
         out.print("<tr>");
         for (int j = 0; j < 7; ++j) {
             if (i != 0 && j != 0) {
-                out.print("<td id=\"id2_" + ((i - 1) * 6 + (j - 1)) + "\">&nbspo&nbsp</td>");
+                out.print("<td>&nbspo&nbsp</td>");
             }else {
                 out.print("<td>&nbsp" + max(max(i - 1, j - 1), 0) + "&nbsp</td>");
             }
