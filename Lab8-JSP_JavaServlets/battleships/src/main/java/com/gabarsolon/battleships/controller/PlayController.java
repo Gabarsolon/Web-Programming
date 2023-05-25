@@ -73,7 +73,6 @@ public class PlayController extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().print("{\"response\":\"You Lost!\"}");
             response.getWriter().flush();
-            dbManager.deleteBoards();
             request.getSession().invalidate();
 
             //wait for the other user to receive the game over message

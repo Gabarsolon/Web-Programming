@@ -29,8 +29,8 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User result = dbManager.authenticate(username, password);
-        if(result==null) {
+        User user = dbManager.authenticate(username, password);
+        if(user==null) {
             request.getRequestDispatcher("login-error.jsp")
                     .forward(request, response);
         }
@@ -42,8 +42,9 @@ public class LoginController extends HttpServlet {
 
             else if (nrOfPlayers < 2){
                 nrOfPlayers += 1;
+                dbManager.deleteBoard(user);
+                request.getSession().setAttribute("user", user);
                 rd = request.getRequestDispatcher("/success.jsp");
-                request.getSession().setAttribute("user", result);
 
             } else {
                 rd = request.getRequestDispatcher("/error.jsp");

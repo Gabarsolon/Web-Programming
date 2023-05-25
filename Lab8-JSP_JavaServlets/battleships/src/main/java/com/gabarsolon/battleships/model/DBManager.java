@@ -39,8 +39,6 @@ public class DBManager {
             if (rs.next()) {
                 user = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
             }
-            stmt.execute("DELETE FROM board WHERE playerId=" + user.getId());
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -122,9 +120,9 @@ public class DBManager {
         }
     }
 
-    public void deleteBoards() {
+    public void deleteBoard(User user) {
         try {
-                String query = "DELETE FROM board";
+                String query = "DELETE FROM board WHERE playerId=" + user.getId();
                 Statement stmt = con.createStatement();
                 stmt.execute(query);
 

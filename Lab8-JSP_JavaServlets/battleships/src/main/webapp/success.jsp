@@ -26,7 +26,7 @@
 </style>
 <script>
     $(document).ready(function() {
-        var updateUserBoard = (userBoard) => {
+        let updateUserBoard = (userBoard) => {
             for (var i = 0; i < 6; ++i) {
                 for (var j = 0; j < 6; ++j) {
                     if (userBoard[i][j] === 3) {
@@ -41,7 +41,7 @@
                 }
             }
         }
-        var updateOpponentBoard = (opponentBoard) => {
+        let updateOpponentBoard = (opponentBoard) => {
             for (var i = 0; i < 6; ++i) {
                 for (var j = 0; j < 6; ++j) {
                     if (opponentBoard[i][j] === 3) {
@@ -56,6 +56,22 @@
                 }
             }
         }
+        let id;
+        let updateBoards = function() {
+            $.get("/PlayController", function (response) {
+                if(response["response"] === "success" || response["response"] === "only one player connected")
+                    updateUserBoard(response["board"]);
+                if(response["response"] === "success")
+                    updateOpponentBoard(response["opponent"]);
+                if(response["response"] === "You Won!" || response["response"] === "You Lost!"){
+                    clearInterval(id);
+                    alert(response["response"]);
+                    window.location.href = 'index.jsp';
+                }
+            });
+        };
+        id = setInterval(updateBoards, 1000);
+
         $.post("/PlayController");
 
         $("#submit_position").click(function() {
@@ -84,21 +100,6 @@
                     alert(response["response"]);
             });
         });
-        var id;
-        var myFunction = function() {
-            $.get("/PlayController", function (response) {
-                if(response["response"] === "success" || response["response"] === "only one player connected")
-                    updateUserBoard(response["board"]);
-                if(response["response"] === "success")
-                    updateOpponentBoard(response["opponent"]);
-                if(response["response"] === "You Won!" || response["response"] === "You Lost!"){
-                    clearInterval(id);
-                    alert(response["response"]);
-                    window.location.href = 'index.jsp';
-                }
-            });
-        };
-        id = setInterval(myFunction, 1000);
     });
 </script>
 <%
