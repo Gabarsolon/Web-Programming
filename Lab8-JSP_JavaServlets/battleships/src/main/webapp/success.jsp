@@ -26,6 +26,36 @@
 </style>
 <script>
     $(document).ready(function() {
+        var updateUserBoard = (userBoard) => {
+            for (var i = 0; i < 6; ++i) {
+                for (var j = 0; j < 6; ++j) {
+                    if (userBoard[i][j] === 3) {
+                        $("#id_" + (j * 6 + i)).css("background-color", "red");
+                    }
+                    if (userBoard[i][j] === 2) {
+                        $("#id_" + (j * 6 + i)).css("background-color", "yellow");
+                    }
+                    if (userBoard[i][j] === 1) {
+                        $("#id_" + (j * 6 + i)).css("background-color", "green");
+                    }
+                }
+            }
+        }
+        var updateOpponentBoard = (opponentBoard) => {
+            for (var i = 0; i < 6; ++i) {
+                for (var j = 0; j < 6; ++j) {
+                    if (opponentBoard[i][j] === 3) {
+                        $("#id2_" + (j * 6 + i)).css("background-color", "red");
+                    }
+                    if (opponentBoard[i][j] === 2) {
+                        $("#id2_" + (j * 6 + i)).css("background-color", "yellow");
+                    }
+                    if(opponentBoard[i][j] === 1){
+                        $("#id_" + (j * 6 + i)).css("background-color", "green");
+                    }
+                }
+            }
+        }
         $.post("/PlayController");
 
         $("#submit_position").click(function() {
@@ -38,22 +68,8 @@
                     x, y, orientation
                 },
                 function(response) {
-                if (response["response"] == "success") {
-                    var nextY = new Map([["up", -1] ,["left", 0] , ["down",1], ["right", 0]]);
-                    var nextX = new Map([["up", 0] ,["left", -1] , ["down",0], ["right", 1]]);
-                    var or = orientation;
-                    var currentX = parseInt(x);
-                    var currentY = parseInt(y);
-
-                    for (var i = 0; i < 3; ++i) {
-                        <%--$(`#table tr:eq(${currentY}) td:eq(${currentX}`).css("background-color", "green");--%>
-                        $("#id_" + (currentY * 6 + currentX)).css("background-color", "green");
-                        currentX += nextX.get(or);
-                        currentY += nextY.get(or);
-                    }
-                } else {
+                if (response["response"] !== "success")
                     alert(response["response"]);
-                }
             });
         });
         $("#submit_attack").click(function() {
@@ -64,43 +80,18 @@
                     x, y
                 },
                 function (response) {
-                if (response["response"] == "success") {
-
-                } else {
+                if (response["response"] !== "success")
                     alert(response["response"]);
-                }
             });
         });
         var id;
         var myFunction = function() {
             $.get("/PlayController", function (response) {
-                if (response["response"] == "success") {
-                    //alert(JSON.stringify(response))
-                    var opponentBoard = response["opponent"];
-                    for (var i = 0; i < 6; ++i) {
-                        for (var j = 0; j < 6; ++j) {
-                            if (opponentBoard[i][j] == 3) {
-                                $("#id2_" + (j * 6 + i)).css("background-color", "red");
-                            }
-                            if (opponentBoard[i][j] == 2) {
-                                $("#id2_" + (j * 6 + i)).css("background-color", "yellow");
-                            }
-                        }
-                    }
-
-                    var opponentBoard = response["board"];
-                    for (var i = 0; i < 6; ++i) {
-                        for (var j = 0; j < 6; ++j) {
-                            if (opponentBoard[i][j] == 3) {
-                                $("#id_" + (j * 6 + i)).css("background-color", "red");
-                            }
-                            if (opponentBoard[i][j] == 2) {
-                                $("#id_" + (j * 6 + i)).css("background-color", "yellow");
-                            }
-                        }
-                    }
-                }
-                else if(response["response"] == "You Won!" || response["response"] == "You Lost!"){
+                if(response["response"] === "success" || response["response"] === "only one player connected")
+                    updateUserBoard(response["board"]);
+                if(response["response"] === "success")
+                    updateOpponentBoard(response["opponent"]);
+                if(response["response"] === "You Won!" || response["response"] === "You Lost!"){
                     clearInterval(id);
                     alert(response["response"]);
                     window.location.href = 'index.jsp';

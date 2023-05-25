@@ -46,16 +46,20 @@ public class PlayController extends HttpServlet {
 
         User user = (User)request.getSession().getAttribute("user");
 
-        if (player1 == null || player2 == null) {
+        if(player2 == null){
             response.setContentType("application/json");
-            response.getWriter().print("{\"response\":\"there should be 2 players connected\"}");
-            response.getWriter().flush();
+            response.getWriter().print("{\"response\":\"only one player connected\",\"board\":");
+
+            Board currentUserBoard = dbManager.getBoard(user);
+
+            flushForUser(currentUserBoard, response);
+
+            response.getWriter().print("}");
             return;
         }
 
         User currentUser;
         User otherUser;
-
 
         if (user.getId() == player1.getId()) {
             currentUser = player1;

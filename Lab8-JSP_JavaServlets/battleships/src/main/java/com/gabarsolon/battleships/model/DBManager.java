@@ -39,7 +39,6 @@ public class DBManager {
             if (rs.next()) {
                 user = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
             }
-            rs.close();
             stmt.execute("DELETE FROM board WHERE playerId=" + user.getId());
 
         } catch (SQLException e) {
@@ -125,14 +124,10 @@ public class DBManager {
 
     public void deleteBoards() {
         try {
+                String query = "DELETE FROM board";
+                Statement stmt = con.createStatement();
+                stmt.execute(query);
 
-            for (int i = 0; i < 6; ++i) {
-                for (int j = 0; j < 6; ++j) {
-                    String query = "DELETE FROM board";
-                    Statement stmt = con.createStatement();
-                    stmt.execute(query);
-                }
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
