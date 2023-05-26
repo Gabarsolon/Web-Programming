@@ -4,6 +4,7 @@ import com.gabarsolon.battleships.domain.Board;
 import com.gabarsolon.battleships.domain.User;
 
 import com.gabarsolon.battleships.model.DBManager;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,6 +46,9 @@ public class PlayController extends HttpServlet {
             throws ServletException, java.io.IOException {
 
         User user = (User)request.getSession().getAttribute("user");
+        if(user == null){
+            request.getRequestDispatcher("/login-error.jsp").forward(request, response);
+        }
 
         if(player2 == null){
             response.setContentType("application/json");

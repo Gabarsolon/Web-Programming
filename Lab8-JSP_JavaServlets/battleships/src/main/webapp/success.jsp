@@ -51,9 +51,6 @@
                 for (var j = 0; j < 6; ++j) {
                     let color = "";
                     switch(opponentBoard[i][j]) {
-                        case 1:
-                            color = "green";
-                            break;
                         case 2:
                             color = "yellow"
                             break;
@@ -96,6 +93,7 @@
                 function(response) {
                 if (response["response"] !== "success")
                     alert(response["response"]);
+                updateBoards();
             });
         });
         $("#submit_attack").click(function() {
@@ -148,9 +146,6 @@
     out.print("</table>");
     out.print("</div>");
     out.print("</div>");
-    for (int i = 0; i < 15; ++i) {
-        out.print("<br>");
-    }
 
 %>
 
