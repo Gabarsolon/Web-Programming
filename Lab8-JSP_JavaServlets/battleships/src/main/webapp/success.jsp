@@ -79,7 +79,13 @@
         };
         id = setInterval(updateBoards, 1000);
 
-        $.post("/PlayController");
+        $.post(
+            "/PlayController",
+            function(response){
+                if(response["response"] === "not logged in")
+                    window.location.href = "login-error.jsp";
+            }
+        );
 
         $("#submit_position").click(function() {
             var x = $("#x_position").val();

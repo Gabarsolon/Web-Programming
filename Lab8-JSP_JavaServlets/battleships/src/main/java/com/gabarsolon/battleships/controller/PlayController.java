@@ -46,9 +46,6 @@ public class PlayController extends HttpServlet {
             throws ServletException, java.io.IOException {
 
         User user = (User)request.getSession().getAttribute("user");
-        if(user == null){
-            request.getRequestDispatcher("/login-error.jsp").forward(request, response);
-        }
 
         if(player2 == null){
             response.setContentType("application/json");
@@ -119,9 +116,14 @@ public class PlayController extends HttpServlet {
                           HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
 
-
         User user = (User) request.getSession().getAttribute("user");
-        System.out.println(user.getId());
+
+        if(user == null){
+            response.setContentType("application/json");
+            response.getWriter().print("{\"response\":\"not logged in\"}");
+            response.getWriter().flush();
+            return;
+        }
 
         if (player1 == null) {
             player1 = user;
