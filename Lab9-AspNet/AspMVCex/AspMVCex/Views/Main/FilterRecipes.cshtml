@@ -1,0 +1,31 @@
+﻿@{
+        Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FilterRecipes</title>
+    <script src="~/Scripts/jquery-2.0.3.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#button").click(function () {
+                // parameter name: "test" from the ajax call is not actually used
+                $.get("/Main/GetRecipesByType", { type: $("#type").val() },
+                    function (data, status) {
+                        $("#maindiv").html(data);
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+    Recipe type: <input type="text" id="type" /><br />
+    <input id="button" type="button" value="Get recipes" />
+    The list of recipes of specified type:
+    <div id="maindiv"></div><br />
+</body>
+</html>
