@@ -7,7 +7,7 @@ namespace AspMVCex.Models
 {
     public class Recipe
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string author { get; set; }
         public string name { get; set; }

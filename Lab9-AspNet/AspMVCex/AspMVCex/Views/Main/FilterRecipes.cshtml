@@ -12,18 +12,38 @@
     <script src="~/Scripts/jquery-2.0.3.js"></script>
     <script>
         $(document).ready(function () {
-            $("#button").click(function () {
-                // parameter name: "test" from the ajax call is not actually used
-                $.get("/Main/GetRecipesByType", { type: $("#type").val() },
+            const getRecipesByType = (type) => {
+                $.get("Main/GetRecipesByType", { type: type },
                     function (data, status) {
                         $("#maindiv").html(data);
                     });
-            });
+            };
+
+            getRecipesByType("");
+
+            addEventListener("click", () => {
+                const element = event.target;
+
+                if (element.matches("#remove-button")) {
+                    if (confirm("Do you really want to remove the recipe?")) {
+                        const recipeId = element.closest('tr').cells[1].innerHTML;
+                        $.get(
+                            "/Main/RemoveRecipe",
+                            { id: recipeId },
+                            function (data, status) {
+                                $("body").html(data);
+                            }
+                        );
+                    }
+                }
+                else if (element.matches("#get-button"))
+                    $("#get-button").click(getRecipesByType($("#type").val()));
+            })
         });
     </script>
 </head>
 <body>
-    Recipe type: <input type="text" id="type" /><input id="button" type="button" value="Get recipes" /><br />
+    Recipe type: <input type="text" id="type" /><input id="get-button" type="button" value="Get recipes" /><br />
     <a href="/Main/AddNewRecipe"><input id="add-button" type="button" value="Add new recipe"></a><br />
     The list of recipes of specified type:
     <div id="maindiv"></div><br/>

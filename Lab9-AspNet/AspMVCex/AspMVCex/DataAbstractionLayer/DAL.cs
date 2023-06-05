@@ -33,7 +33,7 @@ namespace AspMVCex.DataAbstractionLayer
                 while (myreader.Read())
                 {
                     Recipe recipe = new Recipe();
-                    recipe.Id = myreader.GetInt32("id");
+                    recipe.id = myreader.GetInt32("id");
                     recipe.author = myreader.GetString("author");
                     recipe.name = myreader.GetString("name");
                     recipe.type = myreader.GetString("type");

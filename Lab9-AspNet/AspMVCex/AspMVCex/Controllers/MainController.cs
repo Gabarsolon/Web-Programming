@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 using AspMVCex.Models;
 using AspMVCex.DataAbstractionLayer;
+using System.Web.UI.WebControls;
 
 namespace AspMVCex.Controllers
 {
@@ -36,6 +37,13 @@ namespace AspMVCex.Controllers
             DAL dal = new DAL();
             dal.AddRecipe(recipe);
         }
+        public void RemoveRecipe()
+        {
+            int id = int.Parse(Request.Params["id"]);
+
+            DAL dal = new DAL();
+            dal.RemoveRecipe(id);
+        }
 
         public string GetRecipesByType()
         {
@@ -46,6 +54,7 @@ namespace AspMVCex.Controllers
             string result = "" +
                 "<table>" +
                     "<thead>" +
+                        "<th>Operations</th>" +
                         "<th>Id</th>" +
                         "<th>Author</th>" +
                         "<th>Name</th>" +
@@ -60,7 +69,11 @@ namespace AspMVCex.Controllers
             {
                 result += 
                     "<tr>" +
-                        "<td>" + recipe.Id + "</td>" +
+                        "<td>" +
+                            "<a href =\"update.html?id=" +  recipe.id + "\"><button>Update</button></a><br>" +	
+                            "<button id =\"remove-button\">Remove</button>" +
+                        "</td>" +
+                        "<td>" + recipe.id + "</td>" +
                         "<td>" + recipe.author + "</td>" +
                         "<td>" + recipe.name + "</td>" +
                         "<td>" + recipe.type + "</td>" +
