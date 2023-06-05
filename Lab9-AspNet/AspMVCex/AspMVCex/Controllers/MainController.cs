@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AspMVCex.Models;
 using AspMVCex.DataAbstractionLayer;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json;
 
 namespace AspMVCex.Controllers
 {
@@ -21,6 +22,10 @@ namespace AspMVCex.Controllers
         public ActionResult AddNewRecipe()
         {
             return View("AddRecipe");
+        }
+        public ActionResult UpdateRecipeView()
+        {
+            return View("UpdateRecipe");
         }
 
         public void AddRecipe()
@@ -44,7 +49,30 @@ namespace AspMVCex.Controllers
             DAL dal = new DAL();
             dal.RemoveRecipe(id);
         }
+        public void UpdateRecipe()
+        {
+            Recipe recipe = new Recipe();
+            recipe.id = int.Parse(Request["id"]);
+            recipe.author = Request["author"];
+            recipe.name = Request["name"];
+            recipe.type = Request["type"];
+            recipe.prep_time = Request["prep_time"];
+            recipe.servings = int.Parse(Request["servings"]);
+            recipe.ingredients = Request["ingredients"];
+            recipe.method = Request["method"];
 
+            DAL dal = new DAL();
+            dal.UpdateRecipe(recipe);
+        }
+        public string GetRecipeById()
+        {
+            int id = int.Parse(Request.Params["id"]);
+            DAL dal = new DAL();
+
+            Recipe recipe = dal.GetRecipeById(id);
+
+            return JsonConvert.SerializeObject(recipe);
+        }
         public string GetRecipesByType()
         {
             string type = Request.Params["type"];
@@ -70,7 +98,7 @@ namespace AspMVCex.Controllers
                 result += 
                     "<tr>" +
                         "<td>" +
-                            "<a href =\"update.html?id=" +  recipe.id + "\"><button>Update</button></a><br>" +	
+                            "<a href =\"/Main/UpdateRecipeView?id=" +  recipe.id + "\"><button>Update</button></a><br>" +	
                             "<button id =\"remove-button\">Remove</button>" +
                         "</td>" +
                         "<td>" + recipe.id + "</td>" +

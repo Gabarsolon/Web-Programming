@@ -196,6 +196,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Main\AddRecipe.cshtml" />
     <Content Include="Views\Main\FilterRecipes.cshtml" />
+    <Content Include="Views\Main\UpdateRecipe.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
