@@ -13,6 +13,23 @@
 		jQuery(function(){
                 $("#main-form").submit(function(event) {
                     event.preventDefault();
+
+                    var servings = $("#servings").val();
+                    var name = $("#name").val();
+                    var type = $("#type").val();
+                    if (servings === "" || isNaN(servings)) {
+                        alert("Please enter a valid number for servings.");
+                        return;
+                    }
+                    if (name === "") {
+                        alert("You must input a name");
+                        return;
+                    }
+                    if (type === "") {
+                        alert("You must input the type");
+                        return;
+                    }
+
                     if(confirm('Do you really want to add the recipe?')){
                         const json = {};
                         $("#main-form :input").each(function () {
