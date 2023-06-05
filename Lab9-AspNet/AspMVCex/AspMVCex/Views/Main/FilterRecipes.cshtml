@@ -13,7 +13,7 @@
     <script>
         $(document).ready(function () {
             const getRecipesByType = (type) => {
-                $.get("Main/GetRecipesByType", { type: type },
+                $.get("/Main/GetRecipesByType", { type: type },
                     function (data, status) {
                         $("#maindiv").html(data);
                     });

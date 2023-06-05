@@ -10,7 +10,7 @@ namespace AspMVCex.DataAbstractionLayer
 {
     public class DAL
     {
-        public Recipe GetRecipeById(int id)
+        public bool Login(string username, string password)
         {
             MySql.Data.MySqlClient.MySqlConnection conn;
             string myConnectionString;
@@ -26,6 +26,38 @@ namespace AspMVCex.DataAbstractionLayer
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "" +
+                    "select * from users where username=@username";
+                cmd.Parameters.AddWithValue("username", username);
+                MySqlDataReader myreader = cmd.ExecuteReader();
+
+                bool response = false;
+                if (myreader.Read())
+                    response = true;
+                myreader.Close();
+                return response;
+            }
+            catch (MySql.Data.MySqlClient.MySqlException ex)
+            {
+                Console.Write(ex.Message);
+            }
+            return false;
+        }
+        public Recipe GetRecipeById(int id)
+        {
+            MySql.Data.MySqlClient.MySqlConnection conn;
+            string myConnectionString;
+
+            myConnectionString = "server=localhost;uid=root;pwd=;database=food_recipes;";
+
+            try
+            {
+                conn = new MySql.Data.MySqlClient.MySqlConnection();
+                conn.ConnectionString = myConnectionString;
+                conn.Open();
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText =
                     "select * from recipes where id=@id";
                 cmd.Parameters.AddWithValue("id", id);
                 MySqlDataReader myreader = cmd.ExecuteReader();
