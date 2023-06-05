@@ -17,35 +17,31 @@ namespace AspMVCex.Controllers
             return View("FilterRecipes");
         }
 
-        public string TestController()
+        public ActionResult AddNewRecipe()
         {
-            return "Testing the MainController .. OK!";
+            return View("AddRecipe");
         }
 
-        public ActionResult AddStudent()
+        public void AddRecipe()
         {
-            return View("AddNewStudent");
+            Recipe recipe = new Recipe();
+            recipe.author = Request["author"];
+            recipe.name = Request["name"];
+            recipe.type = Request["type"];
+            recipe.prep_time = Request["prep_time"];
+            recipe.servings = int.Parse(Request["servings"]);
+            recipe.ingredients = Request["ingredients"];
+            recipe.method = Request["method"];
+           
+            DAL dal = new DAL();
+            dal.AddRecipe(recipe);
         }
-
-        //public ActionResult SaveStudent()
-        //{
-        //    Recipe stud = new Recipe();
-        //    stud.Id = int.Parse(Request.Params["id"]);
-        //    stud.Nume = Request.Params["nume"];
-        //    stud.Password = Request.Params["password"];
-        //    stud.Group_id = int.Parse(Request.Params["group_id"]);
-
-        //    DAL dal = new DAL();
-        //    dal.SaveStudent(stud);
-        //    return RedirectToAction("GetStudents");
-        //}
 
         public string GetRecipesByType()
         {
             string type = Request.Params["type"];
             DAL dal = new DAL();
             List<Recipe> recipeList = dal.GetRecipesByType(type);
-            ViewData["recipeList"] = recipeList;
 
             string result = "" +
                 "<table>" +
