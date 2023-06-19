@@ -43,9 +43,10 @@
     </script>
 </head>
 <body>
+    <button onclick="location.href='@Url.Action("LogOut", "Main")'">Log Out</button><br />
     Recipe type: <input type="text" id="type" /><input id="get-button" type="button" value="Get recipes" /><br />
     <a href="/Main/AddNewRecipe"><input id="add-button" type="button" value="Add new recipe"></a><br />
     The list of recipes of specified type:
-    <div id="maindiv"></div><br/>
+    <div id="maindiv"></div><br />
 </body>
 </html>

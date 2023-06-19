@@ -35,7 +35,6 @@ public class DBManager {
         System.out.println(username+" "+password);
         try {
             rs = stmt.executeQuery("select * from users where user='"+username+"' and password='"+password+"'");
-
             if (rs.next()) {
                 user = new User(rs.getInt("id"), rs.getString("user"), rs.getString("password"));
             }

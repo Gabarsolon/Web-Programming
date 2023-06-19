@@ -51,6 +51,12 @@ namespace AspMVCex.Controllers
             }
             return View("ErrorLogin");
         }
+
+        public ActionResult LogOut()
+        {
+            Session["LoggedIn"] = false;
+            return View("Login");
+        }
         public ActionResult AddRecipe()
         {
             if (Session["LoggedIn"] == null || !(bool)Session["LoggedIn"])
