@@ -1,22 +1,24 @@
 <?php
-    header("Access-Control-Allow-Origin :*");
+    header('Access-Control-Allow-Origin: *');
 
     session_start();
 
     $con = mysqli_connect("localhost", "root", "", "exam_sample");
+    
     if(!$con){
-        die('Could not connect: ' . mysqli_close());
+        die('Could not connect: ' . mysql_error());
     }
 
     $name = mysqli_real_escape_string($con, $_GET["name"]);
-    $result = mysqli_query($con, "SELECT id FROM softwaredeveloper WHERE name=$name");
+    $result = mysqli_query($con, "SELECT id FROM softwaredeveloper WHERE BINARY name='$name'");
+    $row = mysqli_fetch_array($result);
 
-    if(!$result){
+    if(!$row){
         echo "fail";
+        exit;
     }
     else{
-        $row = mysqli_fetch_array($result);
-        $_SESSION["user_id"] = $row['id'];
+        $_SESSION["username"] = $name;
         echo "success";
     }
 

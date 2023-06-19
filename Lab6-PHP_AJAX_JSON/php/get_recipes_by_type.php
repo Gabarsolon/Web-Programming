@@ -19,7 +19,6 @@
 			$row['prep_time'], $row['servings'], $row['ingredients'], $row['method']);
 		array_push($recipes, $recipe);
 	}
-	
 
 	echo json_encode($recipes);
 ?> 
