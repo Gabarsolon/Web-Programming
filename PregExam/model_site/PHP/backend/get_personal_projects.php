@@ -12,7 +12,9 @@
 
     $username = $_SESSION['username'];
     $result = mysqli_query($con, 
-        "SELECT name FROM project WHERE members LIKE '$username,%' OR members LIKE '%,$username,%' OR members LIKE '%,$username'");
+        "SELECT name 
+         FROM project 
+         WHERE members LIKE '$username,%' OR members LIKE '%,$username,%' OR members LIKE '%,$username' OR members LIKE '$username'");
 	mysqli_close($con);
 
     $projects = array();

@@ -67,4 +67,15 @@ jQuery(() => {
         )
     })
 
+    $("#assign-projects-to-dev-button").on("click", () => {
+        $.post(
+            "backend/assign_dev_to_projects.php",
+            {dev_name: $("#dev-name").val(),
+             projects_list: $("#projects-list").val()
+            },
+            function(data, status){
+                alert(data);
+            }
+        )
+    })
 })

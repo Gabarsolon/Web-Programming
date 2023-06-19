@@ -1,3 +1,9 @@
 td {
     border: 1px solid;
 }
+
+.dev-projects-form{
+    border: 1px solid;
+    padding: 1%;
+    width: 20%;
+}
