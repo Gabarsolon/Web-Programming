@@ -23,7 +23,7 @@
         <label for="name">Name:</label>
         <input type="text" name="name"><br>
         <label for="description">Description:</label>
-        <input type="description"><br>
+        <input type="text" name="description"><br>
         <input type="submit" value="Add product">
     </form>
 </body>

@@ -31,10 +31,11 @@ public class OrderController extends HttpServlet {
         String username = (String)req.getSession().getAttribute("username");
         List<Integer[]> basket = (List<Integer[]>)req.getSession().getAttribute("basket");
         PrintWriter out = resp.getWriter();
-        out.println("<a href=\"display_products.jsp\">Display products</a>");
+        out.println("<a href=\"display_products.jsp\">Display products</a><br>");
 
         if(basket == null){
             out.println("Your basket is empty");
+            return;
         }
 
         if(checkout.equals("finalize")){
@@ -66,6 +67,6 @@ public class OrderController extends HttpServlet {
             ((List<Integer[]>)req.getSession().getAttribute("basket")).add(new Integer[]{productID, quantity});
 
         }
-        req.getRequestDispatcher("display_products").forward(req, resp);
+        req.getRequestDispatcher("display_products.jsp").forward(req, resp);
     }
 }
