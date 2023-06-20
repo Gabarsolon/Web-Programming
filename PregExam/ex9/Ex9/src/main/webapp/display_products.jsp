@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.example.ex9.domain.Product" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Turcu
   Date: 20/06/2023
@@ -25,7 +26,7 @@
     <input type="submit" value="Get products">
 </form>
 
-<%= request.getAttribute("productList") %>.
+<% List<Product> productList = (List<Product>)request.getAttribute("productList"); %>.
 <c:if test="${not empty productList}">
     <h2>Product Search Results</h2>
     <table>
