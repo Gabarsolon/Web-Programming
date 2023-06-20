@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ex3.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ex3.Data
 {
@@ -7,5 +8,7 @@ namespace Ex3.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Topic> Topic { get; set; }
+        public DbSet<Post> Post { get; set; }
     }
 }

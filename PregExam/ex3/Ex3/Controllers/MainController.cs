@@ -17,6 +17,15 @@ namespace Ex3.Controllers
         {
             return View();
         }
+        public IActionResult ViewPosts()
+        {
+            return View();
+        }
+        public IActionResult Login(string username)
+        {
+            HttpContext.Session.SetString("username", username);
+            return Redirect("ViewPosts");
+        }
         public string Test()
         {
             return "It's working";
