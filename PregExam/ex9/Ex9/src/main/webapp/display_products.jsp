@@ -17,6 +17,7 @@
     <li><a href="add_product.jsp">Add product</a></li>
     <li><a href="index.jsp">Change username</a></li>
     <li><a href="display_products.jsp">Show products</a></li>
+    <li><a href="checkout.jsp">Checkout</a></li>
 </ul><br>
 
 <h1>Display products that begin with a given name</h1>
@@ -26,18 +27,27 @@
     <input type="submit" value="Get products">
 </form>
 
-<% List<Product> productList = (List<Product>)request.getAttribute("productList"); %>.
+<% List<Product> productList = (List<Product>)request.getAttribute("productList"); %>
 <c:if test="${not empty productList}">
     <h2>Product Search Results</h2>
     <table>
         <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Buy this product</th>
         </tr>
         <c:forEach var="product" items="${productList}">
             <tr>
                 <td>${product.name}</td>
                 <td>${product.description}</td>
+                <td>
+                    <form action="/order" method="post">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" name="quantity">
+                        <input type="hidden" name="productID" value="${product.id}">
+                        <input type="submit" val="Buy">
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </table>

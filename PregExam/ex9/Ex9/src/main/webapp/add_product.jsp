@@ -15,6 +15,7 @@
         <li><a href="add_product.jsp">Add product</a></li>
         <li><a href="index.jsp">Change username</a></li>
         <li><a href="display_products.jsp">Show products</a></li>
+        <li><a href="checkout.jsp">Checkout</a></li>
     </ul><br>
 
     <h1>Add a new product</h1>

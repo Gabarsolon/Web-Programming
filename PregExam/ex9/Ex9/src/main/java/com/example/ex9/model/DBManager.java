@@ -1,5 +1,6 @@
 package com.example.ex9.model;
 
+import com.example.ex9.domain.Order;
 import com.example.ex9.domain.Product;
 
 import java.sql.*;
@@ -59,5 +60,21 @@ public class DBManager {
             System.out.println(sqlException);
         }
         return null;
+    }
+
+    public void addOrder(Order order){
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "INSERT INTO orders(user, productID, quantity)" +
+                            "VALUES(?, ?, ?)"
+            );
+            preparedStatement.setString(1,order.getUser());
+            preparedStatement.setInt(2, order.getProductID());
+            preparedStatement.setInt(3, order.getQuantity());
+
+            preparedStatement.execute();
+        }catch (SQLException sqlException){
+            System.out.println(sqlException);
+        }
     }
 }

@@ -1,3 +1,7 @@
+td {
+  border: 1px solid;
+}
+
 ul {
     list-style-type: none;
 
