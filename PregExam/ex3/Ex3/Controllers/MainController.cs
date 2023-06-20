@@ -19,7 +19,8 @@ namespace Ex3.Controllers
         }
         public IActionResult ViewPosts()
         {
-            return View();
+            var posts = _context.Post.ToList();
+            return View(posts);
         }
         public IActionResult Login(string username)
         {

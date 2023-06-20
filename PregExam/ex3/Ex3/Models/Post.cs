@@ -6,6 +6,6 @@
         public string User { get; set; }
         public string TopicID { get; set; }
         public string Text { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime Date { get; set; }
     }
 }
