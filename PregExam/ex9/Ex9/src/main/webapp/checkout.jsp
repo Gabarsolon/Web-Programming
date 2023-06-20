@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Turcu
   Date: 20/06/2023
@@ -18,6 +18,26 @@
     <li><a href="checkout.jsp">Checkout</a></li>
 </ul><br>
   <h1>Checkout</h1>
+
+<%-- Retrieve the list of orders from the session --%>
+    <%
+        List<Integer[]> basket = (List<Integer[]>) request.getSession().getAttribute("basket");
+    %>
+
+    <%-- Display the list of orders --%>
+    <%
+        if (basket == null || basket.isEmpty()) {
+            out.println("No orders in the basket.");
+        } else {
+            out.println("<h2>Order Summary:</h2>");
+            for (Integer[] item : basket) {
+                Integer productID = item[0];
+                Integer quantity = item[1];
+                out.println("Product ID: " + productID + ", Quantity: " + quantity + "<br>");
+            }
+        }
+    %>
+
   <form action="/order" method="get">
       <label for="finalize">Finalize Command</label>
       <input id="finalize" type="radio" name="checkout" checked="true" value="finalize"><br>
