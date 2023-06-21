@@ -1,6 +1,8 @@
 ﻿using Ex3.Data;
 using Ex3.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using Org.BouncyCastle.Utilities;
 using System.Data.Entity;
 
@@ -40,6 +42,7 @@ namespace Ex3.Controllers
 		public IActionResult Login(string username)
         {
             HttpContext.Session.SetString("username", username);
+            HttpContext.Session.SetInt32("noOfPosts", _context.Post.Count());
             return Redirect("ViewPosts");
         }
         public IActionResult AddNewPost(string topic_name, string text)
@@ -57,7 +60,8 @@ namespace Ex3.Controllers
 
             _context.Post.Add(new Post{User=username, TopicID = topic.Id, Date=currentDateTime, Text = text });
             _context.SaveChanges();
-            return RedirectToAction("ViewPosts");
+			HttpContext.Session.SetInt32("noOfPosts", _context.Post.Count());
+			return RedirectToAction("ViewPosts");
         }
         public IActionResult SaveUpdatedPost(int id, int topic_id, string text)
         {
@@ -69,6 +73,18 @@ namespace Ex3.Controllers
             _context.SaveChanges();
             return Redirect("ViewPosts");
         }
+        public IActionResult CheckNewPost()
+        {
+            int? previouslyNoOfPosts = HttpContext.Session.GetInt32("noOfPosts");
+            int currentNoOfPosts = _context.Post.Count();
+            if (previouslyNoOfPosts != null && _context.Post.Count() != previouslyNoOfPosts)
+            {
+                HttpContext.Session.SetInt32("noOfPosts", currentNoOfPosts);
+				return Json(_context.Post.OrderByDescending(post => post.Id).FirstOrDefault());
+			}
+
+            return Ok(null);
+		}
         public string Test()
         {
             return "It's working";

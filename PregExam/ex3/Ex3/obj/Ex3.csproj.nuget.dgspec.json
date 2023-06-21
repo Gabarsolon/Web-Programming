@@ -60,6 +60,14 @@
             "MySqlConnector": {
               "target": "Package",
               "version": "[2.2.6, )"
+            },
+            "jQuery": {
+              "target": "Package",
+              "version": "[3.7.0, )"
+            },
+            "jQuery-vsdoc": {
+              "target": "Package",
+              "version": "[2.1.0, )"
             }
           },
           "imports": [
