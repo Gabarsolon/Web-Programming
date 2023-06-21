@@ -1,0 +1,77 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/Content/styles.css">
+    <script src="~/Scripts/jquery-2.0.3.js"></script>
+    <script language="javascript">
+		jQuery(function(){
+                $("#main-form").submit(function(event) {
+                    event.preventDefault();
+
+                    var servings = $("#servings").val();
+                    var name = $("#name").val();
+                    var type = $("#type").val();
+                    if (servings === "" || isNaN(servings)) {
+                        alert("Please enter a valid number for servings.");
+                        return;
+                    }
+                    if (name === "") {
+                        alert("You must input a name");
+                        return;
+                    }
+                    if (type === "") {
+                        alert("You must input the type");
+                        return;
+                    }
+
+                    if(confirm('Do you really want to add the recipe?')){
+                        const json = {};
+                        $("#main-form :input").each(function () {
+                            json[this.id] = $(this).val() || "";
+                        });
+                        console.log(json);
+                        $.post(
+                            "/Main/AddRecipe",
+                            json,
+                            function (data, status) {
+                                $("body").html(data);
+                            });
+                    }
+                });
+            });
+    </script>
+</head>
+<body>
+    <a href="FilterRecipes">Go back</a><br>
+    <h1>Add a new recipe</h1>
+    <form id="main-form">
+        <label for="author">Author:</label>
+        <input class="form-input" type="text" id="author"><br>
+
+        <label for="author">Name:</label>
+        <input class="form-input" type="text" id="name"><br>
+
+        <label for="type">Type:</label>
+        <input class="form-input" type="text" id="type"><br>
+
+        <label for="prep_time">Preparation time:</label>
+        <input class="form-input" type="time" id="prep_time" step="1"><br>
+
+        <label for="servings">Servings:</label>
+        <input class="form-input" type="number" id="servings"><br>
+
+        <label for="ingredients">Ingredients:</label>
+        <textarea class="form-input" id="ingredients" rows="4" cols="50"></textarea><br>
+
+        <label for="method">Method:</label>
+        <textarea class="form-input" id="method" rows="4" cols="50"></textarea>
+
+        <input class="form-input" type="submit" id="add-button" value="Add recipe">
+    </form>
+</body>
+</html>

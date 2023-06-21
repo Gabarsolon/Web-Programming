@@ -20,6 +20,7 @@
                 <th>Topic ID</th>
                 <th>Text</th>
                 <th>Date & Time</th>
+                <th>Update Post</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,9 @@
                     <td>@post.TopicID</td>
                     <td>@post.Text</td>
                     <td>@post.Date</td>
+                    <td>
+                        <a href="UpdatePost?id=@post.Id"><button>Update Post</button></a>
+                    </td>
                 </tr>
             }
         </tbody>

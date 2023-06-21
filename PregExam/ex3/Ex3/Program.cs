@@ -31,5 +31,10 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Main}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "update",
+    pattern: "{controller=Main}/{action=UpdatePost}/{id?}"
+    );
 app.Run();
 

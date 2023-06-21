@@ -1,0 +1,15 @@
+﻿@{
+	Layout = null;
+}
+
+@model Post
+
+<h1>Update the post</h1>
+<form action="SaveUpdatedPost" method="post">
+	<input type="hidden" name="id" value="@Model.Id" />
+	<label for="topic_id">Topic ID:</label>
+	<input type="number" name="topic_id" value="@Model.TopicID" />
+	<label for="text">Text:</label>
+	<input type="text" name="text" value="@Model.Text"/>
+	<input type="submit" value="Submit" />
+</form>
