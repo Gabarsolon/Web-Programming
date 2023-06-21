@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Turcu\Documents\GitHub\Web-Programming\PregExam\ex3\Ex3
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Turcu/Documents/GitHub/Web-Programming/PregExam/ex3/Ex3/Views/Main/AddPost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxBZGRQb3N0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Turcu/Documents/GitHub/Web-Programming/PregExam/ex3/Ex3/Views/Main/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

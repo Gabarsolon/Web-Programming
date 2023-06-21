@@ -2,6 +2,7 @@
 using Ex3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Utilities;
+using System.Data.Entity;
 
 namespace Ex3.Controllers
 {
@@ -26,6 +27,10 @@ namespace Ex3.Controllers
             var posts = _context.Post.ToList();
             return View(posts);
         }
+        public IActionResult AddPost()
+        {
+            return View();
+        }
         public IActionResult UpdatePost(int id)
 		{
 			var postToUpdate = _context.Post.Find(id);
@@ -36,6 +41,23 @@ namespace Ex3.Controllers
         {
             HttpContext.Session.SetString("username", username);
             return Redirect("ViewPosts");
+        }
+        public IActionResult AddNewPost(string topic_name, string text)
+        {
+            string username = HttpContext.Session.GetString("username");
+            DateTime currentDateTime = DateTime.UtcNow;
+            var topic = _context.Topic.FirstOrDefault(topic => topic.TopicName == topic_name);
+
+            if (topic == null)
+            {
+                topic = new Topic { TopicName = topic_name };
+                _context.Topic.Add(topic);
+                _context.SaveChanges();
+            }
+
+            _context.Post.Add(new Post{User=username, TopicID = topic.Id, Date=currentDateTime, Text = text });
+            _context.SaveChanges();
+            return RedirectToAction("ViewPosts");
         }
         public IActionResult SaveUpdatedPost(int id, int topic_id, string text)
         {

@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = null;
+}
+<ul style="list-style-type: none">
+	<li><a href="AddPost">Add post</a></li>
+	<li><a href="ViewPosts">View Posts</a></li>
+</ul>
+
+<h1>Add a new post</h1>
+<form action="AddNewPost" method="post">
+	<input type="hidden" name="id"/>
+	<label for="topic_name">Topic Name:</label>
+	<input type="text" name="topic_name"/>
+	<label for="text">Text:</label>
+	<input type="text" name="text"/>
+	<input type="submit" value="Submit" />
+</form>

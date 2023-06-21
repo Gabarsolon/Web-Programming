@@ -4,6 +4,11 @@
 
 @model Post
 
+<ul style="list-style-type: none">
+	<li><a href="AddPost">Add post</a></li>
+	<li><a href="ViewPosts">View Posts</a></li>
+</ul>
+
 <h1>Update the post</h1>
 <form action="SaveUpdatedPost" method="post">
 	<input type="hidden" name="id" value="@Model.Id" />
