@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("Default")));
+	options.UseMySQL(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddSession();
 
 var app = builder.Build();
@@ -32,9 +32,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Main}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "update",
-    pattern: "{controller=Main}/{action=UpdatePost}/{id?}"
-    );
 app.Run();
 

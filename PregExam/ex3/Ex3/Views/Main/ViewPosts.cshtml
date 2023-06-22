@@ -2,11 +2,8 @@
 	Layout = null;
 }
 
-@model List<Ex3.Models.Post>
+@model List<PostDTO>
 
-@{
-    ViewData["Title"] = "View Posts";
-}
 <head>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
@@ -36,13 +33,13 @@
             @foreach (var post in Model)
             {
                 <tr>
-                    <td>@post.Id</td>
-                    <td>@post.User</td>
-                    <td>@post.TopicID</td>
-                    <td>@post.Text</td>
-                    <td>@post.Date</td>
+                    <td>@post.Post.Id</td>
+                    <td>@post.Post.User</td>
+                    <td>@post.Topic.TopicName</td>
+                    <td>@post.Post.Text</td>
+                    <td>@post.Post.Date</td>
                     <td>
-                        <a href="UpdatePost?id=@post.Id"><button>Update Post</button></a>
+                        <a href="UpdatePost?id=@post.Post.Id"><button>Update Post</button></a>
                     </td>
                 </tr>
             }
