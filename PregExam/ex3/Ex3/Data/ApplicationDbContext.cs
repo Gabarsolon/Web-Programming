@@ -10,6 +10,6 @@ namespace Ex3.Data
 		}
 
 		public DbSet<Users> users { get; set; }
-        public DbSet<Content> contents { get; set; }
+        public DbSet<Content> content { get; set; }
     }
 }

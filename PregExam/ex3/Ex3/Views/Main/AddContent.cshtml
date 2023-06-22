@@ -1,0 +1,25 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = null;
+}	
+<head>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/js/site.js"></script>
+</head>
+
+<ul style="list-style-type: none">
+	<li><a href="AddContent">Add post</a></li>
+	<li><a href="ViewPosts">View Posts</a></li>
+</ul>
+
+<h1>Add a new content</h1>
+	<label for="title">Title: </label>
+	<input type="text" id="title"/><br />
+	<label for="description">Description: </label>
+	<input type="text" id="description" />
+	<label for="url">URL:</label>
+	<input type="text" id="url"/>
+	<button id="save-content">Save temporarly the content</button>
+	<button id="add-content">Add all saved contents to the server</button>

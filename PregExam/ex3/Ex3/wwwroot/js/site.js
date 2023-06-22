@@ -3,4 +3,30 @@
 
 // Write your JavaScript code.
 jQuery(() => {
+    var contents = [];
+
+    $("#save-content").on("click", () => {
+        const title = $("#title").val();
+        const description = $("#description").val();
+        const url = $("#url").val();
+
+        contents.push({ title: title, description: description, url: url });
+        $("#title").val("");
+        $("#description").val("");
+        $("#url").val("");
+
+        alert("Content saved temporarly");
+        console.log(contents);
+    })
+
+    $("#add-content").on("click", () => {
+        $.post(
+            "AddNewContent",
+            { contents: contents },
+            function (data) {
+                alert("Everything was added to the server");
+                contents = [];
+            }
+        )
+    })
 });

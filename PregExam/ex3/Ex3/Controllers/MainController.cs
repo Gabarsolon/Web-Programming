@@ -26,9 +26,21 @@ namespace Ex3.Controllers
         {
             return View();
         }
-        public IActionResult AddPost()
+        public IActionResult AddContent()
         {
             return View();
+        }
+        public IActionResult AddNewContent(List<Content> contents)
+        {
+            int? userID = HttpContext.Session.GetInt32("userID");
+            foreach (Content content in contents)
+            {
+                content.userID = userID;
+                content.date = DateTime.UtcNow;
+                db.content.Add(content);
+            }
+            db.SaveChanges();
+            return Redirect("AddContent");
         }
 
 		public IActionResult Login(string username, string password)
@@ -38,7 +50,10 @@ namespace Ex3.Controllers
             {
                 return Redirect("ErrorLogin");
             }
-            return Redirect("ViewPosts");
+            HttpContext.Session.SetInt32("userID", user.Last().ID);
+            HttpContext.Session.SetString("username", user.Last().user);
+            HttpContext.Session.SetInt32("role", user.Last().role);
+            return Redirect("AddContent");
         }
         public string Test()
         {
