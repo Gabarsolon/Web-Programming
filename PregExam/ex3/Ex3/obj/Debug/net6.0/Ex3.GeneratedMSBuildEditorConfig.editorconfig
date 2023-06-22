@@ -28,12 +28,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Turcu/Documents/GitHub/Web-Programming/PregExam/ex3/Ex3/Views/Main/UpdatePost.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxVcGRhdGVQb3N0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Turcu/Documents/GitHub/Web-Programming/PregExam/ex3/Ex3/Views/Main/ViewPosts.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxWaWV3UG9zdHMuY3NodG1s
+[C:/Users/Turcu/Documents/GitHub/Web-Programming/PregExam/ex3/Ex3/Views/Main/ViewContent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFpblxWaWV3Q29udGVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Turcu/Documents/GitHub/Web-Programming/PregExam/ex3/Ex3/Views/Shared/Error.cshtml]

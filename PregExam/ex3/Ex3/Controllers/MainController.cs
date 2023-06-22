@@ -30,8 +30,23 @@ namespace Ex3.Controllers
         {
             return View();
         }
-        public IActionResult AddNewContent(List<Content> contents)
+		public IActionResult ViewContent()
+		{
+			int? role = HttpContext.Session.GetInt32("role");
+			if (role == null || role == 1)
+			{
+				return Redirect("Login");
+			}
+			var contents = db.content.ToList();
+			return View(contents);
+		}
+		public IActionResult AddNewContent(List<Content> contents)
         {
+            int? role = HttpContext.Session.GetInt32("role");
+			if (role == null || role == 0)
+            {
+                return Redirect("Login");
+            }
             int? userID = HttpContext.Session.GetInt32("userID");
             foreach (Content content in contents)
             {
@@ -42,7 +57,6 @@ namespace Ex3.Controllers
             db.SaveChanges();
             return Redirect("AddContent");
         }
-
 		public IActionResult Login(string username, string password)
         {
             var user = db.users.Where(x => x.user==username && x.password==password).ToList();
@@ -50,11 +64,21 @@ namespace Ex3.Controllers
             {
                 return Redirect("ErrorLogin");
             }
-            HttpContext.Session.SetInt32("userID", user.Last().ID);
-            HttpContext.Session.SetString("username", user.Last().user);
-            HttpContext.Session.SetInt32("role", user.Last().role);
-            return Redirect("AddContent");
+            Users currentUser = user.Last();
+            HttpContext.Session.SetInt32("userID", currentUser.ID);
+            HttpContext.Session.SetString("username", currentUser.user);
+            HttpContext.Session.SetInt32("role", currentUser.role);
+            if (currentUser.role == 1)
+            {
+                return Redirect("AddContent");
+            }
+            else
+            {
+                return Redirect("ViewContent");
+            }
         }
+
+        
         public string Test()
         {
             return "It's working";

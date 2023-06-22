@@ -1,0 +1,39 @@
+﻿@{
+	Layout = null;
+}
+
+@model List<Content>
+
+@if (Model.Count > 0)
+{
+	<h1>List of all contents</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Date</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>URL</th>
+				<th>UserID</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (Content content in Model)
+			{
+				<tr>
+					<td>@content.ID</td>
+					<td>@content.date</td>
+					<td>@content.title</td>
+					<td>@content.description</td>
+					<td>@content.url</td>
+					<td>@content.userID</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}
+else
+{
+	<h1>There aren't any contents</h1>
+}
