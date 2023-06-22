@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Turcu\\Documents\\GitHub\\Web-Programming\\PregExam\\ex3\\Ex3\\wwwroot\\js\\content_reader.js",
+      "PackagePath": "staticwebassets\\js\\content_reader.js"
+    },
+    {
       "Id": "C:\\Users\\Turcu\\Documents\\GitHub\\Web-Programming\\PregExam\\ex3\\Ex3\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

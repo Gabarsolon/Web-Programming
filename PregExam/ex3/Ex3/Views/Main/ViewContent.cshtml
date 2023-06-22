@@ -2,36 +2,47 @@
 	Layout = null;
 }
 
+<head>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/js/content_reader.js"></script>
+	<link rel="stylesheet" href="~/css/site.css"/>
+</head>
+
 @model List<Content>
+
+<button id="check-content" value="@Model.Last().ID">Check new content</button><br />
 
 @if (Model.Count > 0)
 {
 	<h1>List of all contents</h1>
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Date</th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>URL</th>
-				<th>UserID</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (Content content in Model)
-			{
+	<div id="contents-div">
+		<table>
+			<thead>
 				<tr>
-					<td>@content.ID</td>
-					<td>@content.date</td>
-					<td>@content.title</td>
-					<td>@content.description</td>
-					<td>@content.url</td>
-					<td>@content.userID</td>
+					<th>ID</th>
+					<th>Date</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>URL</th>
+					<th>UserID</th>
 				</tr>
-			}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				@foreach (Content content in Model)
+				{
+					<tr>
+						<td>@content.ID</td>
+						<td>@content.date</td>
+						<td>@content.title</td>
+						<td>@content.description</td>
+						<td>@content.url</td>
+						<td>@content.userID</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+	
 }
 else
 {

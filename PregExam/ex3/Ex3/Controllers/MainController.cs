@@ -30,6 +30,19 @@ namespace Ex3.Controllers
         {
             return View();
         }
+        public IActionResult CheckNewContent(int lastID)
+        {
+			int? role = HttpContext.Session.GetInt32("role");
+			if (role == null || role == 1)
+			{
+				return Redirect("Login");
+			}
+			if (db.content.OrderByDescending(content => content.ID).FirstOrDefault().ID != lastID)
+            {
+                return Json(db.content.Where(content => content.ID > lastID).ToList());
+            }
+            return Json(new { nothing_new = "There aren't any new contents" });
+        }
 		public IActionResult ViewContent()
 		{
 			int? role = HttpContext.Session.GetInt32("role");

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "s3+HKpG0j89U3o0x50iri+3aE4ixRmEJlZY4lFwjvIg=",
+  "Hash": "8AJ1bKWl5JGxnGqZfj85rSwuO1F6UM45s1rLEq/GKSc=",
   "Source": "Ex3",
   "BasePath": "_content/Ex3",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Turcu\\Documents\\GitHub\\Web-Programming\\PregExam\\ex3\\Ex3\\wwwroot\\js\\content_reader.js",
+      "SourceId": "Ex3",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Turcu\\Documents\\GitHub\\Web-Programming\\PregExam\\ex3\\Ex3\\wwwroot\\",
+      "BasePath": "_content/Ex3",
+      "RelativePath": "js/content_reader.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\content_reader.js"
     },
     {
       "Identity": "C:\\Users\\Turcu\\Documents\\GitHub\\Web-Programming\\PregExam\\ex3\\Ex3\\wwwroot\\js\\site.js",
