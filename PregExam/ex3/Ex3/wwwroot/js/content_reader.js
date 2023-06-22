@@ -10,19 +10,22 @@ jQuery(() => {
             { lastID: lastID },
             function (data) {
                 console.log(data);
-                var projects = JSON.parse(data);
+                if (data.hasOwnProperty('nothing_new')) {
+                    alert(data.nothing_new);
+                }
+                else {
+                    var list = $("<ul>");
+                    $.each(data, function (i, project) {
+                        list.append($("<li>").text(
+                            "Id -> " + project.id +
+                            " Date -> " + project.date +
+                            " Title -> " + project.title +
+                            " Description -> " + project.description +
+                            " URL -> " + project.url));
+                    });
 
-                var list = $("<ul>");
-                projects.forEach(project => {
-                    list.append($("<li>").text(
-                        "Id -> " + project.id +
-                        " Date -> " + project.date +
-                        " Title -> " + project.title +
-                        " Description -> " + project.description +
-                        " URL -> " + project.url));
-                });
-           
-                $("#main-div").empty().append(list);
+                    $("#contents-div").empty().append(list);
+                }
             }
         )
     });
