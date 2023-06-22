@@ -9,7 +9,7 @@ namespace Ex3.Data
 		{
 		}
 
-		public DbSet<Topic> Topic { get; set; }
-        public DbSet<Post> Post { get; set; }
+		public DbSet<Users> users { get; set; }
+        public DbSet<Content> contents { get; set; }
     }
 }
